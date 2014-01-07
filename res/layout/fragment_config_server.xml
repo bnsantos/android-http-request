@@ -8,11 +8,17 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Config Server"
-            android:id="@+id/textView" android:layout_gravity="left|center_vertical"/>
+            android:text="@string/config_server_select"
+            android:id="@+id/configServerTitle" android:layout_gravity="center"
+            android:textSize="@dimen/config_server_title" android:textStyle="bold" android:layout_margin="5dp"/>
     <Button
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button"/>
+            android:text="@string/config_server_add_server"
+            android:id="@+id/configServerAddServerBtn" android:drawableLeft="@drawable/add"
+            android:layout_gravity="right" android:layout_margin="5dp"/>
+    <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/configServerListView" android:layout_margin="5dp"/>
 </LinearLayout>

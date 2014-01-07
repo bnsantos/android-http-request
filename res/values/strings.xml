@@ -6,4 +6,7 @@
     <string name="action_bar_title">Login Request</string>
 
     <string name="login_request_button">Do Request</string>
+
+    <string name="config_server_select">Select Server</string>
+    <string name="config_server_add_server">Add Server</string>
 </resources>

@@ -59,6 +59,10 @@ public class LoginActivity extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
+            case android.R.id.home:
+                Toast.makeText(getApplicationContext(), "home", Toast.LENGTH_SHORT).show();
+                showLoginFragment();
+                return true;
             case R.id.action_config_request:
                 showConfigRequestFragment();
                 return true;
