@@ -4,4 +4,6 @@
     <string name="action_config_server">Config Server</string>
     <string name="action_config_request">Config Request</string>
     <string name="action_bar_title">Login Request</string>
+
+    <string name="login_request_button">Do Request</string>
 </resources>
