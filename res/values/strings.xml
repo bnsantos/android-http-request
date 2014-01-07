@@ -14,4 +14,8 @@
     <string name="add_server_dialog_title">Add Server</string>
     <string name="add_server_dialog_add">Add</string>
     <string name="add_server_dialog_hint">Type server address</string>
+
+    <string name="config_request_title">Config Request</string>
+    <string name="config_request_add">Add Field</string>
+    <string name="config_request_clear">Clear</string>
 </resources>

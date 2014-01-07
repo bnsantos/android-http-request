@@ -8,11 +8,27 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Config Request"
-            android:id="@+id/textView" android:layout_gravity="left|center_vertical"/>
-    <Button
+            android:text="@string/config_request_title"
+            android:id="@+id/configRequestTitle" android:layout_gravity="center"
+            android:textSize="@dimen/config_request_title" android:textStyle="bold" android:layout_margin="5dp"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/configRequestButtonsLayout"
+            android:layout_gravity="right" android:layout_margin="5dp">
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/config_request_clear"
+                android:id="@+id/configRequestClearFields" android:drawableLeft="@drawable/broom"/>
+        <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/config_request_add"
+                android:id="@+id/configRequestAddField" android:drawableLeft="@drawable/add"/>
+    </LinearLayout>
+    <ListView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button"/>
+            android:layout_height="fill_parent"
+            android:id="@+id/configRequestListView" android:layout_margin="5dp"/>
 </LinearLayout>
