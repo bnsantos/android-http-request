@@ -43,7 +43,7 @@ public class ServerArrayAdapter extends BaseAdapter implements Filterable {
         return servers.size();
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (convertView == null)
             view = inflater.inflate(R.layout.component_server, null);
@@ -60,7 +60,19 @@ public class ServerArrayAdapter extends BaseAdapter implements Filterable {
             }
         });
 
+        view.findViewById(R.id.componentServerRemoveBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                remove(position);
+            }
+        });
+
         return view;
+    }
+
+    private void remove(int position){
+        servers.remove(position);
+        this.notifyDataSetChanged();
     }
 
     @Override
