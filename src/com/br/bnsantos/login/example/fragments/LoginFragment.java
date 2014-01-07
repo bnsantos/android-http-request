@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import com.br.bnsantos.login.example.R;
 
 /**
@@ -15,6 +16,8 @@ import com.br.bnsantos.login.example.R;
  * To change this template use File | Settings | File Templates.
  */
 public class LoginFragment extends Fragment {
+    private EditText editTextServer;
+    private String selectedServer;
 
     private LoginFragment(){}
 
@@ -29,6 +32,20 @@ public class LoginFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        editTextServer = (EditText)view.findViewById(R.id.fragmentLoginServerEditText);
+        return view;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        editTextServer.setText(selectedServer);
+    }
+
+    public void setSelectedServer(String server){
+        selectedServer=server;
+        editTextServer.setText(server);
     }
 }

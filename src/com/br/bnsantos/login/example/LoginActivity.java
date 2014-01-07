@@ -113,7 +113,8 @@ public class LoginActivity extends FragmentActivity implements AddServerDialog.A
     }
 
     public void selectedServer(String server){
-
+        ((LoginFragment)loginFragment).setSelectedServer(server);
+        showLoginFragment();
     }
 
     @Override
