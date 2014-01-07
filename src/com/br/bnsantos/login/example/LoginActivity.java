@@ -10,12 +10,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+import com.br.bnsantos.login.example.dialog.AddFieldDialog;
 import com.br.bnsantos.login.example.dialog.AddServerDialog;
 import com.br.bnsantos.login.example.fragments.ConfigRequestFragment;
 import com.br.bnsantos.login.example.fragments.ConfigServerFragment;
 import com.br.bnsantos.login.example.fragments.LoginFragment;
 
-public class LoginActivity extends FragmentActivity implements AddServerDialog.AddServerDialogListener {
+public class LoginActivity extends FragmentActivity implements AddServerDialog.AddServerDialogListener, AddFieldDialog.AddFieldDialogListener {
 
     // action bar
     private ActionBar actionBar;
@@ -122,8 +123,13 @@ public class LoginActivity extends FragmentActivity implements AddServerDialog.A
     }
 
     @Override
-    public void onDialogPositiveClick(AddServerDialog dialog) {
+    public void onAddServerDialogPositiveClick(AddServerDialog dialog) {
         ((ConfigServerFragment)configServerFragment).addServer(dialog.getServer());
+    }
+
+    @Override
+    public void onAddFieldDialogPositiveClick(AddFieldDialog dialog){
+        ((ConfigRequestFragment)configRequestFragment).addField(dialog.getField());
     }
 
 }

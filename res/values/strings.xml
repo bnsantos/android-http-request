@@ -11,11 +11,18 @@
     <string name="config_server_add_server">Add Server</string>
     <string name="config_server_clear">Clear</string>
 
+    <string name="add_btn">Add</string>
+
     <string name="add_server_dialog_title">Add Server</string>
-    <string name="add_server_dialog_add">Add</string>
     <string name="add_server_dialog_hint">Type server address</string>
 
     <string name="config_request_title">Config Request</string>
     <string name="config_request_add">Add Field</string>
     <string name="config_request_clear">Clear</string>
+    <string name="config_request_field_name">Field Name</string>
+    <string name="config_request_field_value">Field Value</string>
+
+    <string name="add_field_dialog_hint">Type field name</string>
+    <string name="add_field_dialog_title">Add Field</string>
+
 </resources>

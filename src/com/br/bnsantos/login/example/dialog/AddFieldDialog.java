@@ -18,20 +18,20 @@ import com.br.bnsantos.login.example.R;
  * Time: 11:25 AM
  * To change this template use File | Settings | File Templates.
  */
-public class AddServerDialog extends DialogFragment {
+public class AddFieldDialog extends DialogFragment {
 
     /* The activity that creates an instance of this dialog fragment must
      * implement this interface in order to receive event callbacks.
      * Each method passes the DialogFragment in case the host needs to query it. */
-    public interface AddServerDialogListener {
-        public void onAddServerDialogPositiveClick(AddServerDialog dialog);
+    public interface AddFieldDialogListener {
+        public void onAddFieldDialogPositiveClick(AddFieldDialog dialog);
     }
 
     // Use this instance of the interface to deliver action events
-    AddServerDialogListener mListener;
+    AddFieldDialogListener mListener;
 
-    private String server;
-    private EditText editTextServer;
+    private String field;
+    private EditText editTextField;
 
     // Override the Fragment.onAttach() method to instantiate the NoticeDialogListener
     @Override
@@ -40,7 +40,7 @@ public class AddServerDialog extends DialogFragment {
         // Verify that the host activity implements the callback interface
          // Instantiate the NoticeDialogListener so we can send events to the host
             try {
-                mListener = (AddServerDialogListener) activity;
+                mListener = (AddFieldDialogListener) activity;
         } catch (ClassCastException e) {
             // The activity doesn't implement the interface, throw exception
             throw new ClassCastException(activity.toString() + " must implement AddServerDialogListener");
@@ -54,15 +54,15 @@ public class AddServerDialog extends DialogFragment {
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        View view = inflater.inflate(R.layout.dialog_add_server, null);
-        editTextServer = (EditText)view.findViewById(R.id.dialogAddServerServer);
+        View view = inflater.inflate(R.layout.dialog_add_field, null);
+        editTextField = (EditText)view.findViewById(R.id.dialogAddField);
 
         builder.setView(view)
-                .setTitle(R.string.add_server_dialog_title)
+                .setTitle(R.string.add_field_dialog_title)
                 .setPositiveButton(R.string.add_btn, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        server = editTextServer.getText().toString();
-                        mListener.onAddServerDialogPositiveClick(AddServerDialog.this);
+                        field = editTextField.getText().toString();
+                        mListener.onAddFieldDialogPositiveClick(AddFieldDialog.this);
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -76,7 +76,7 @@ public class AddServerDialog extends DialogFragment {
         return builder.create();
     }
 
-    public String getServer() {
-        return server;
+    public String getField() {
+        return field;
     }
 }

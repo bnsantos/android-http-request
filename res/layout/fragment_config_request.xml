@@ -20,15 +20,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/config_request_clear"
-                android:id="@+id/configRequestClearFields" android:drawableLeft="@drawable/broom"/>
+                android:id="@+id/configRequestClearFieldsBtn" android:drawableLeft="@drawable/broom"/>
         <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/config_request_add"
-                android:id="@+id/configRequestAddField" android:drawableLeft="@drawable/add"/>
+                android:id="@+id/configRequestAddFieldBtn" android:drawableLeft="@drawable/add"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:id="@+id/configRequestFieldHearderLayout"
+            android:layout_marginLeft="5dp" android:layout_marginTop="5dp" android:layout_marginRight="5dp"
+            android:background="@color/black">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/config_request_field_name"
+                android:id="@+id/configRequestFieldName" android:textColor="@color/white" android:layout_weight="1"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/config_request_field_value"
+                android:id="@+id/configRequestFieldValue" android:textColor="@color/white" android:layout_weight="1"/>
+        <Button android:layout_width="30dp" android:layout_height="30dp" android:id="@+id/configRequestFieldRemoveBtn"
+                android:background="@drawable/remove" android:visibility="invisible"/>
     </LinearLayout>
     <ListView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/configRequestListView" android:layout_margin="5dp"/>
+            android:id="@+id/configRequestListView" android:layout_marginLeft="5dp" android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"/>
 </LinearLayout>
