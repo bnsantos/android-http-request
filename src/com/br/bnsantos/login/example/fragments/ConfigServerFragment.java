@@ -45,12 +45,22 @@ public class ConfigServerFragment extends Fragment {
             }
         });
 
+        view.findViewById(R.id.configServerClearServersBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearServers();
+            }
+        });
         return view;
-
     }
 
     public void addServer(String server){
         servers.add(server);
+        serverArrayAdapter.notifyDataSetChanged();
+    }
+
+    private void clearServers(){
+        servers.clear();
         serverArrayAdapter.notifyDataSetChanged();
     }
 
