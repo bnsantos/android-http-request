@@ -5,11 +5,49 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent" android:id="@+id/fragmentLoginLayout">
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/loginFragmentServer" android:layout_gravity="center"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:id="@+id/fragmentLoginServerLayout"
+            android:layout_margin="5dp" android:padding="5dp">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/server"
+                android:id="@+id/fragmentLoginServer" android:layout_marginRight="5dp" android:textStyle="bold"
+                android:textSize="@dimen/login_titles"/>
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragmentLoginServerEditText" android:layout_weight="1" android:editable="false"/>
+        <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/fragmentLoginEditServerBtn" android:background="@drawable/link"
+                android:layout_marginLeft="5dp"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:id="@+id/fragmentLoginRequestLayout"
+            android:layout_margin="5dp" android:padding="5dp">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/request"
+                android:id="@+id/fragmentLoginRequest" android:layout_marginRight="5dp" android:textStyle="bold"
+                android:textSize="@dimen/login_titles"/>
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragmentLoginRequestEditText" android:layout_weight="1" android:lines="5"
+                android:editable="false"/>
+        <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/fragmentLoginEditRequestBtn" android:background="@drawable/config"
+                android:layout_marginLeft="5dp"/>
+    </LinearLayout>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
