@@ -10,11 +10,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+import com.br.bnsantos.login.example.dialog.AddServerDialog;
 import com.br.bnsantos.login.example.fragments.ConfigRequestFragment;
 import com.br.bnsantos.login.example.fragments.ConfigServerFragment;
 import com.br.bnsantos.login.example.fragments.LoginFragment;
 
-public class LoginActivity extends FragmentActivity {
+public class LoginActivity extends FragmentActivity implements AddServerDialog.AddServerDialogListener {
 
     // action bar
     private ActionBar actionBar;
@@ -118,6 +119,11 @@ public class LoginActivity extends FragmentActivity {
 
     public void selectedServer(String server){
 
+    }
+
+    @Override
+    public void onDialogPositiveClick(AddServerDialog dialog) {
+        ((ConfigServerFragment)configServerFragment).addServer(dialog.getServer());
     }
 
 }
