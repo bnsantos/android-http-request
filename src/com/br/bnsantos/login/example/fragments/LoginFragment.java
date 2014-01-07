@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import com.br.bnsantos.login.example.LoginActivity;
 import com.br.bnsantos.login.example.R;
 
 /**
@@ -34,6 +35,20 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         editTextServer = (EditText)view.findViewById(R.id.fragmentLoginServerEditText);
+
+        view.findViewById(R.id.fragmentLoginEditServerBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((LoginActivity)getActivity()).showConfigServerFragment();
+            }
+        });
+
+        view.findViewById(R.id.fragmentLoginEditRequestBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((LoginActivity)getActivity()).showConfigRequestFragment();
+            }
+        });
         return view;
     }
 

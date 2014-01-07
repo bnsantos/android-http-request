@@ -76,7 +76,7 @@ public class LoginActivity extends FragmentActivity implements AddServerDialog.A
         }
     }
 
-    private void showConfigServerFragment(){
+    public void showConfigServerFragment(){
         configServerFragment = ConfigServerFragment.getInstance();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if(loginFragment!=null){
@@ -100,7 +100,7 @@ public class LoginActivity extends FragmentActivity implements AddServerDialog.A
         fragmentTransaction.add(R.id.loginLayout, loginFragment).commit();
     }
 
-    private void showConfigRequestFragment(){
+    public void showConfigRequestFragment(){
         configRequestFragment = ConfigRequestFragment.getInstance();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if(loginFragment!=null){
