@@ -21,16 +21,34 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class ConfigServerFragment extends Fragment {
+    private static final String SERVERS_BUNDLE = "SERVERS_LOGIN";
+    private static final String ADD_SERVER_DIALOG = "ADD_SERVER_DIALOG";
 
     private ListView configServer;
     private ArrayList<String> servers;
     private ServerArrayAdapter serverArrayAdapter;
 
+    private ConfigServerFragment(){}
+
+    private static ConfigServerFragment instance;
+
+    public static ConfigServerFragment getInstance(){
+        if(instance ==null){
+            instance = new ConfigServerFragment();
+        }
+        return instance;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_config_server, container, false);
         configServer = (ListView)view.findViewById(R.id.configServerListView);
-        servers = new ArrayList<String>();
+
+        if (savedInstanceState != null) {
+            servers = savedInstanceState.getStringArrayList(SERVERS_BUNDLE);
+        }else if (servers==null){
+            servers = new ArrayList<String>();
+        }
         serverArrayAdapter = new ServerArrayAdapter(servers, (LoginActivity)getActivity());
         configServer.setAdapter(serverArrayAdapter);
 
@@ -38,7 +56,7 @@ public class ConfigServerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AddServerDialog addServerDialog = new AddServerDialog();
-                addServerDialog.show(getActivity().getSupportFragmentManager(), "teste");
+                addServerDialog.show(getActivity().getSupportFragmentManager(), ADD_SERVER_DIALOG);
                 //To change body of implemented methods use File | Settings | File Templates.
             }
         });
@@ -62,5 +80,17 @@ public class ConfigServerFragment extends Fragment {
         serverArrayAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        serverArrayAdapter.notifyDataSetChanged();
+    }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // Save the current article selection in case we need to recreate the fragment
+        outState.putStringArrayList(SERVERS_BUNDLE, servers);
+    }
 }

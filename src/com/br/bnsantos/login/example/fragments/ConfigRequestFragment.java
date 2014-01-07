@@ -21,15 +21,32 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class ConfigRequestFragment extends Fragment {
+    private static final String REQUEST_BUNDLE = "REQUEST_LOGIN";
+    private static final String ADD_FIELD_DIALOG = "ADD_FIELD_DIALOG";
     private ListView configRequest;
     private ArrayList<String> fields;
     private FieldArrayAdapter fieldsArrayAdapter;
+
+    private ConfigRequestFragment(){}
+
+    private static ConfigRequestFragment instance;
+
+    public static ConfigRequestFragment getInstance(){
+        if(instance ==null){
+            instance = new ConfigRequestFragment();
+        }
+        return instance;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_config_request, container, false);
         configRequest = (ListView)view.findViewById(R.id.configRequestListView);
-        fields = new ArrayList<String>();
+        if (savedInstanceState != null) {
+            fields = savedInstanceState.getStringArrayList(REQUEST_BUNDLE);
+        }else if (fields==null){
+            fields = new ArrayList<String>();
+        }
         fieldsArrayAdapter = new FieldArrayAdapter(fields, (LoginActivity)getActivity());
         configRequest.setAdapter(fieldsArrayAdapter);
 
@@ -37,7 +54,7 @@ public class ConfigRequestFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AddFieldDialog addFieldDialog = new AddFieldDialog();
-                addFieldDialog.show(getActivity().getSupportFragmentManager(), "teste");
+                addFieldDialog.show(getActivity().getSupportFragmentManager(), ADD_FIELD_DIALOG);
                 //To change body of implemented methods use File | Settings | File Templates.
             }
         });
@@ -60,5 +77,13 @@ public class ConfigRequestFragment extends Fragment {
     public void addField(String field){
         fields.add(field);
         fieldsArrayAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // Save the current article selection in case we need to recreate the fragment
+        outState.putStringArrayList(REQUEST_BUNDLE, fields);
     }
 }

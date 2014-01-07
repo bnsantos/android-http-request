@@ -77,43 +77,37 @@ public class LoginActivity extends FragmentActivity implements AddServerDialog.A
     }
 
     private void showConfigServerFragment(){
-        configServerFragment = new ConfigServerFragment();
+        configServerFragment = ConfigServerFragment.getInstance();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if(loginFragment!=null){
             fragmentTransaction.remove(loginFragment);
-            loginFragment=null;
         }
         if(configRequestFragment!=null){
             fragmentTransaction.remove(configRequestFragment);
-            configRequestFragment=null;
         }
         fragmentTransaction.add(R.id.loginLayout, configServerFragment).commit();
     }
 
     private void showLoginFragment(){
-        loginFragment = new LoginFragment();
+        loginFragment = LoginFragment.getInstance();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if(configRequestFragment!=null){
             fragmentTransaction.remove(configRequestFragment);
-            configRequestFragment=null;
         }
         if(configServerFragment!=null){
-            fragmentTransaction.remove(configRequestFragment);
-            configRequestFragment=null;
+            fragmentTransaction.remove(configServerFragment);
         }
         fragmentTransaction.add(R.id.loginLayout, loginFragment).commit();
     }
 
     private void showConfigRequestFragment(){
-        configRequestFragment = new ConfigRequestFragment();
+        configRequestFragment = ConfigRequestFragment.getInstance();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if(loginFragment!=null){
             fragmentTransaction.remove(loginFragment);
-            loginFragment=null;
         }
         if(configServerFragment!=null){
             fragmentTransaction.remove(configServerFragment);
-            configServerFragment=null;
         }
         fragmentTransaction.add(R.id.loginLayout, configRequestFragment).commit();
     }

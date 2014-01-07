@@ -15,6 +15,18 @@ import com.br.bnsantos.login.example.R;
  * To change this template use File | Settings | File Templates.
  */
 public class LoginFragment extends Fragment {
+
+    private LoginFragment(){}
+
+    private static LoginFragment instance;
+
+    public static LoginFragment getInstance(){
+        if(instance ==null){
+            instance = new LoginFragment();
+        }
+        return instance;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_login, container, false);
