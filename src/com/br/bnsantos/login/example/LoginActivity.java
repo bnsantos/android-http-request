@@ -116,4 +116,8 @@ public class LoginActivity extends FragmentActivity {
         fragmentTransaction.add(R.id.loginLayout, configRequestFragment).commit();
     }
 
+    public void selectedServer(String server){
+
+    }
+
 }
