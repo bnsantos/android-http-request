@@ -28,7 +28,11 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:id="@+id/fragmentLoginEditServerBtn" android:background="@drawable/link"
-                android:layout_marginLeft="5dp"/>
+                android:layout_marginLeft="5dp" android:layout_marginRight="5dp"/>
+        <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/fragmentLoginTestConnectivityBtn" android:background="@drawable/connectivity_black"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"

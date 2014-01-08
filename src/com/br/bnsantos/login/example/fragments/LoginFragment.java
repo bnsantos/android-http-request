@@ -5,9 +5,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import com.br.bnsantos.login.example.LoginActivity;
 import com.br.bnsantos.login.example.R;
+import com.br.bnsantos.login.example.tasks.ServerConnectivityTask;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,6 +22,9 @@ import com.br.bnsantos.login.example.R;
 public class LoginFragment extends Fragment {
     private EditText editTextServer;
     private String selectedServer;
+
+    private Button connectivityBtn;
+    private boolean serverAvailable;
 
     private LoginFragment(){}
 
@@ -49,6 +55,14 @@ public class LoginFragment extends Fragment {
                 ((LoginActivity)getActivity()).showConfigRequestFragment();
             }
         });
+
+        connectivityBtn = (Button)view.findViewById(R.id.fragmentLoginTestConnectivityBtn);
+        connectivityBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                testConnectivity();
+            }
+        });
         return view;
     }
 
@@ -62,5 +76,20 @@ public class LoginFragment extends Fragment {
     public void setSelectedServer(String server){
         selectedServer=server;
         editTextServer.setText(server);
+    }
+
+    private void testConnectivity(){
+        //TODO validate string before
+        ServerConnectivityTask task = new ServerConnectivityTask(this);
+        task.execute(editTextServer.getText().toString());
+    }
+
+    public void setServerConnectivity(boolean available, String msg){
+        if(available){
+            connectivityBtn.setBackgroundResource(R.drawable.connectivity_green);
+        }else{
+            connectivityBtn.setBackgroundResource(R.drawable.connectivity_black);
+        }
+        Toast.makeText(getActivity().getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 }
