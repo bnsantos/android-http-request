@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 import com.br.bnsantos.login.example.dialog.AddFieldDialog;
 import com.br.bnsantos.login.example.dialog.AddServerDialog;
 import com.br.bnsantos.login.example.fragments.ConfigRequestFragment;
@@ -46,7 +45,22 @@ public class LoginActivity extends FragmentActivity implements AddServerDialog.A
 
         frameLayout = (FrameLayout)findViewById(R.id.loginLayout);
 
-        showLoginFragment();
+        initFragments();
+
+        //showLoginFragment();
+    }
+
+    private void initFragments(){
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        loginFragment = LoginFragment.getInstance();
+        configServerFragment = ConfigServerFragment.getInstance();
+        configRequestFragment = ConfigRequestFragment.getInstance();
+        fragmentTransaction.add(R.id.loginLayout, loginFragment);
+        fragmentTransaction.add(R.id.loginLayout, configRequestFragment);
+        fragmentTransaction.add(R.id.loginLayout, configServerFragment);
+        fragmentTransaction.hide(configRequestFragment);
+        fragmentTransaction.hide(configServerFragment).commit();
+
     }
 
     @Override
@@ -62,7 +76,6 @@ public class LoginActivity extends FragmentActivity implements AddServerDialog.A
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case android.R.id.home:
-                Toast.makeText(getApplicationContext(), "home", Toast.LENGTH_SHORT).show();
                 showLoginFragment();
                 return true;
             case R.id.action_config_request:
@@ -77,39 +90,18 @@ public class LoginActivity extends FragmentActivity implements AddServerDialog.A
     }
 
     public void showConfigServerFragment(){
-        configServerFragment = ConfigServerFragment.getInstance();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if(loginFragment!=null){
-            fragmentTransaction.remove(loginFragment);
-        }
-        if(configRequestFragment!=null){
-            fragmentTransaction.remove(configRequestFragment);
-        }
-        fragmentTransaction.add(R.id.loginLayout, configServerFragment).commit();
-    }
-
-    private void showLoginFragment(){
-        loginFragment = LoginFragment.getInstance();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if(configRequestFragment!=null){
-            fragmentTransaction.remove(configRequestFragment);
-        }
-        if(configServerFragment!=null){
-            fragmentTransaction.remove(configServerFragment);
-        }
-        fragmentTransaction.add(R.id.loginLayout, loginFragment).commit();
+        fragmentTransaction.hide(configRequestFragment).hide(loginFragment).show(configServerFragment).commit();
     }
 
     public void showConfigRequestFragment(){
-        configRequestFragment = ConfigRequestFragment.getInstance();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if(loginFragment!=null){
-            fragmentTransaction.remove(loginFragment);
-        }
-        if(configServerFragment!=null){
-            fragmentTransaction.remove(configServerFragment);
-        }
-        fragmentTransaction.add(R.id.loginLayout, configRequestFragment).commit();
+        fragmentTransaction.hide(configServerFragment).hide(loginFragment).show(configRequestFragment).commit();
+    }
+
+    private void showLoginFragment(){
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.hide(configServerFragment).hide(configRequestFragment).show(loginFragment).commit();
     }
 
     public void selectedServer(String server){
