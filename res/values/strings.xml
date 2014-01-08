@@ -6,6 +6,7 @@
     <string name="action_bar_title">Login Request</string>
 
     <string name="login_request_button">Do Request</string>
+    <string name="login_request_select_server">Please add a new server</string>
 
     <string name="config_server_select">Select Server</string>
     <string name="config_server_add_server">Add Server</string>
@@ -26,4 +27,7 @@
 
     <string name="add_field_dialog_hint">Type field name</string>
     <string name="add_field_dialog_title">Add Field</string>
+
+    <string name="server_available">Server available</string>
+    <string name="server_not_available">Server not available</string>
 </resources>

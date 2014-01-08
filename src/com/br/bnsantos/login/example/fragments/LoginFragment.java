@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.br.bnsantos.login.example.LoginActivity;
 import com.br.bnsantos.login.example.R;
 import com.br.bnsantos.login.example.tasks.ServerConnectivityTask;
+import com.br.bnsantos.login.example.utils.Validator;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,7 +25,6 @@ public class LoginFragment extends Fragment {
     private String selectedServer;
 
     private Button connectivityBtn;
-    private boolean serverAvailable;
 
     private LoginFragment(){}
 
@@ -79,9 +79,13 @@ public class LoginFragment extends Fragment {
     }
 
     private void testConnectivity(){
-        //TODO validate string before
-        ServerConnectivityTask task = new ServerConnectivityTask(this);
-        task.execute(editTextServer.getText().toString());
+        String serverAddress = editTextServer.getText().toString();
+        if(Validator.validateServerAddress(serverAddress)){
+            ServerConnectivityTask task = new ServerConnectivityTask(this);
+            task.execute(serverAddress);
+        }else{
+            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.login_request_select_server), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void setServerConnectivity(boolean available, String msg){

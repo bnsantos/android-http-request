@@ -1,6 +1,7 @@
 package com.br.bnsantos.login.example.tasks;
 
 import android.os.AsyncTask;
+import com.br.bnsantos.login.example.R;
 import com.br.bnsantos.login.example.fragments.LoginFragment;
 
 import java.io.IOException;
@@ -28,15 +29,15 @@ public class ServerConnectivityTask extends AsyncTask<String, Void, String> {
             InetAddress address = InetAddress.getByName(urls[0]);
             if(address.isReachable(1000)){
                 serverAvailable = true;
-                return "Server available";
+                return loginFragment.getString(R.string.server_available);
             }else{
                 serverAvailable = false;
-                return "Server not available";
+                return loginFragment.getString(R.string.server_not_available);
             }
         }catch (UnknownHostException e){
-            return "Server not available: " + e.getMessage();
+            return loginFragment.getString(R.string.server_not_available) + " " + e.getMessage();
         }catch (IOException e){
-            return "Server not available: " + e.getMessage();
+            return loginFragment.getString(R.string.server_not_available) + " " + e.getMessage();
         }
     }
 
