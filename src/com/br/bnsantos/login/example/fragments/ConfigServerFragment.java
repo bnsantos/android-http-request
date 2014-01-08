@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 import com.br.bnsantos.login.example.LoginActivity;
 import com.br.bnsantos.login.example.R;
 import com.br.bnsantos.login.example.adapter.ServerArrayAdapter;
 import com.br.bnsantos.login.example.dialog.AddServerDialog;
+import com.br.bnsantos.login.example.utils.Validator;
 
 import java.util.ArrayList;
 
@@ -71,8 +73,12 @@ public class ConfigServerFragment extends Fragment {
     }
 
     public void addServer(String server){
-        servers.add(server);
-        serverArrayAdapter.notifyDataSetChanged();
+        if(Validator.validateServerAddress(server)){
+            servers.add(server);
+            serverArrayAdapter.notifyDataSetChanged();
+        }else{
+            Toast.makeText(getActivity().getApplicationContext(), "Not a valid server address", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void clearServers(){
