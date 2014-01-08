@@ -23,7 +23,8 @@
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/fragmentLoginServerEditText" android:layout_weight="1" android:editable="false"/>
+                android:id="@+id/fragmentLoginServerEditText" android:layout_weight="1" android:editable="false"
+                android:hint="@string/choose_server"/>
         <Button
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -33,6 +34,25 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:id="@+id/fragmentLoginTestConnectivityBtn" android:background="@drawable/connectivity_black"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:id="@+id/fragmentLoginServerPortLayout"
+            android:layout_margin="5dp" android:padding="5dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="@string/port" android:id="@+id/fragmentLoginServerPort" android:layout_marginRight="5dp"
+                  android:textStyle="bold" android:textSize="@dimen/login_titles"/>
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragmentLoginServerPortEditText" android:layout_weight="1" android:editable="false"
+                android:hint="@string/pick_port"/>
+        <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/fragmentLoginServerPortBtn" android:layout_marginLeft="5dp"
+                android:background="@drawable/unchecked"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"
@@ -49,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/fragmentLoginRequestEditText" android:layout_weight="1" android:lines="5"
-                android:editable="false"/>
+                android:editable="false" android:hint="@string/fill_request"/>
         <Button
                 android:layout_width="30dp"
                 android:layout_height="30dp"

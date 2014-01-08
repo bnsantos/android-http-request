@@ -15,6 +15,11 @@
     <string name="add_btn">Add</string>
     <string name="server">Server:</string>
     <string name="request">Request:</string>
+    <string name="port">Port:</string>
+
+    <string name="choose_server">Choose server</string>
+    <string name="fill_request">Fill request</string>
+    <string name="pick_port">Pick a port</string>
 
     <string name="add_server_dialog_title">Add Server</string>
     <string name="add_server_dialog_hint">Type server address</string>

@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.br.bnsantos.login.example.LoginActivity;
 import com.br.bnsantos.login.example.R;
+import com.br.bnsantos.login.example.dialog.PortPickerDialog;
 import com.br.bnsantos.login.example.tasks.ServerConnectivityTask;
 import com.br.bnsantos.login.example.utils.Validator;
 
@@ -25,6 +26,10 @@ public class LoginFragment extends Fragment {
     private String selectedServer;
 
     private Button connectivityBtn;
+
+    private Button portBtn;
+    private EditText editTextPort;
+    private int serverPort = -1;
 
     private LoginFragment(){}
 
@@ -56,6 +61,15 @@ public class LoginFragment extends Fragment {
             }
         });
 
+        portBtn = (Button)view.findViewById(R.id.fragmentLoginServerPortBtn);
+        portBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectPort();
+            }
+        });
+        editTextPort = (EditText)view.findViewById(R.id.fragmentLoginServerPortEditText);
+
         connectivityBtn = (Button)view.findViewById(R.id.fragmentLoginTestConnectivityBtn);
         connectivityBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +85,9 @@ public class LoginFragment extends Fragment {
         super.onResume();
 
         editTextServer.setText(selectedServer);
+        if(serverPort!=-1){
+            editTextPort.setText(Integer.toString(serverPort));
+        }
     }
 
     public void setSelectedServer(String server){
@@ -95,5 +112,16 @@ public class LoginFragment extends Fragment {
             connectivityBtn.setBackgroundResource(R.drawable.connectivity_black);
         }
         Toast.makeText(getActivity().getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void selectPort(){
+        PortPickerDialog portPickerDialog = new PortPickerDialog();
+        portPickerDialog.show(getActivity().getSupportFragmentManager(), "TESTE");
+    }
+
+    public void addPort(int port){
+        serverPort = port;
+        editTextPort.setText(Integer.toString(port));
+        portBtn.setBackgroundResource(R.drawable.checked);
     }
 }
