@@ -57,6 +57,23 @@
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:id="@+id/fragmentLoginRequestMethodLayout"
+            android:layout_margin="5dp" android:padding="5dp">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/request_method"
+                android:id="@+id/fragmentLoginRequestMethod" android:textSize="@dimen/login_titles"
+                android:textStyle="bold" android:layout_marginRight="5dp"/>
+        <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/request_methods_array"
+                android:id="@+id/fragmentLoginRequestMethodSpinner"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content" android:id="@+id/fragmentLoginRequestLayout"
             android:layout_margin="5dp" android:padding="5dp">
         <TextView
