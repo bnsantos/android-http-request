@@ -77,7 +77,7 @@ public class ConfigServerFragment extends Fragment {
             servers.add(server);
             serverArrayAdapter.notifyDataSetChanged();
         }else{
-            Toast.makeText(getActivity().getApplicationContext(), "Not a valid server address", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity().getApplicationContext(), "Not AbstractHttpTask valid server address", Toast.LENGTH_SHORT).show();
         }
     }
 

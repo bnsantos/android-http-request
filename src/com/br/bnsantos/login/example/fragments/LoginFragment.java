@@ -11,6 +11,9 @@ import android.widget.Toast;
 import com.br.bnsantos.login.example.LoginActivity;
 import com.br.bnsantos.login.example.R;
 import com.br.bnsantos.login.example.dialog.PortPickerDialog;
+import com.br.bnsantos.login.example.http.communicator.StringResponseCommunicator;
+import com.br.bnsantos.login.example.http.rest.HttpMethodType;
+import com.br.bnsantos.login.example.http.task.HttpTask;
 import com.br.bnsantos.login.example.tasks.ServerConnectivityTask;
 import com.br.bnsantos.login.example.utils.Validator;
 
@@ -77,6 +80,13 @@ public class LoginFragment extends Fragment {
                 testConnectivity();
             }
         });
+
+        view.findViewById(R.id.fragmentLoginDoRequestBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doRequest();
+            }
+        });
         return view;
     }
 
@@ -123,5 +133,12 @@ public class LoginFragment extends Fragment {
         serverPort = port;
         editTextPort.setText(Integer.toString(port));
         portBtn.setBackgroundResource(R.drawable.checked);
+    }
+
+    private void doRequest(){
+        String pathToAction = "http://" + selectedServer + ":" + serverPort + "/api/v1/lines/9103/search";
+        HttpTask task = new HttpTask<Void, Void>(new StringResponseCommunicator((LoginActivity)getActivity()),
+                null, pathToAction, HttpMethodType.GET);
+        task.execute();
     }
 }

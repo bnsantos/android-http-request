@@ -97,5 +97,5 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_request_button"
-            android:id="@+id/loginFragmentDoRequestBtn" android:layout_gravity="center"/>
+            android:id="@+id/fragmentLoginDoRequestBtn" android:layout_gravity="center"/>
 </LinearLayout>
