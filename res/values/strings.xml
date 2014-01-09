@@ -17,6 +17,8 @@
     <string name="request">Request:</string>
     <string name="port">Port:</string>
     <string name="request_method">Request Method:</string>
+    <string name="path">Path:</string>
+    <string name="target_path">Target Path</string>
 
     <string name="choose_server">Choose server</string>
     <string name="fill_request">Fill request</string>
@@ -37,5 +39,6 @@
     <string name="server_available">Server available</string>
     <string name="server_not_available">Server not available</string>
 
-
+    <string name="server_prefix">http://</string>
+    <string name="invalid_path">Invalid Path</string>
 </resources>

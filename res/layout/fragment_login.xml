@@ -9,67 +9,116 @@
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" android:id="@+id/fragmentLoginServerLayout"
-            android:layout_margin="5dp" android:padding="5dp">
-        <TextView
+            android:layout_margin="5dp">
+        <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/fragmentLoginServerNameLayout"
+                android:layout_margin="5dp" android:layout_weight="1">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/server"
+                    android:id="@+id/fragmentLoginServer" android:layout_marginRight="2dp" android:textStyle="bold"
+                    android:textSize="@dimen/login_titles"/>
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:editable="false"
+                    android:id="@+id/fragmentLoginServerEditText"
+                    android:hint="@string/choose_server" android:layout_weight="1"/>
+            <Button
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/fragmentLoginEditServerBtn" android:background="@drawable/link"
+                    android:layout_marginLeft="5dp" android:layout_marginRight="2dp"/>
+            <Button
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/fragmentLoginTestConnectivityBtn" android:background="@drawable/connectivity_black"
+                    android:layout_marginRight="2dp"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/fragmentLoginServerPortLayout"
+                android:layout_margin="5dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="@string/port" android:id="@+id/fragmentLoginServerPort" android:layout_marginRight="2dp"
+                      android:textStyle="bold" android:textSize="@dimen/login_titles"/>
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:editable="false"
+                    android:id="@+id/fragmentLoginServerPortEditText" android:layout_weight="1"
+                    android:hint="@string/pick_port" android:maxLines="1"/>
+            <Button
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/fragmentLoginServerPortBtn" android:layout_marginLeft="2dp"
+                    android:background="@drawable/unchecked"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:id="@+id/fragmentLoginTargetURILayout"
+            android:layout_margin="5dp">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent" android:id="@+id/fragmentLoginRequestMethodLayout"
+                    android:layout_margin="5dp">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/request_method"
+                        android:id="@+id/fragmentLoginRequestMethod" android:textSize="@dimen/login_titles"
+                        android:textStyle="bold" android:layout_marginRight="5dp"
+                        android:layout_gravity="center_vertical"/>
+                <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/request_methods_array"
+                        android:id="@+id/fragmentLoginRequestMethodSpinner" android:layout_marginRight="5dp"
+                        android:layout_gravity="center_vertical"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/fragmentLoginRequestComplementLayout"
+                    android:visibility="visible" android:layout_margin="5dp" android:layout_weight="1">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="@string/path" android:id="@+id/fragmentLoginRequestPath"
+                          android:textSize="@dimen/login_titles" android:textStyle="bold"
+                          android:layout_marginRight="5dp"/>
+                <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fragmentLoginRequestPathEditText"/>
+            </LinearLayout>
+        </LinearLayout>
+        <EditText
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/server"
                 android:clickable="false"
                 android:cursorVisible="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                android:id="@+id/fragmentLoginServer" android:layout_marginRight="5dp" android:textStyle="bold"
-                android:textSize="@dimen/login_titles"/>
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/fragmentLoginServerEditText" android:layout_weight="1" android:editable="false"
-                android:hint="@string/choose_server"/>
-        <Button
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:id="@+id/fragmentLoginEditServerBtn" android:background="@drawable/link"
-                android:layout_marginLeft="5dp" android:layout_marginRight="5dp"/>
-        <Button
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:id="@+id/fragmentLoginTestConnectivityBtn" android:background="@drawable/connectivity_black"/>
-    </LinearLayout>
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" android:id="@+id/fragmentLoginServerPortLayout"
-            android:layout_margin="5dp" android:padding="5dp">
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:text="@string/port" android:id="@+id/fragmentLoginServerPort" android:layout_marginRight="5dp"
-                  android:textStyle="bold" android:textSize="@dimen/login_titles"/>
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/fragmentLoginServerPortEditText" android:layout_weight="1" android:editable="false"
-                android:hint="@string/pick_port"/>
-        <Button
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:id="@+id/fragmentLoginServerPortBtn" android:layout_marginLeft="5dp"
-                android:background="@drawable/unchecked"/>
-    </LinearLayout>
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" android:id="@+id/fragmentLoginRequestMethodLayout"
-            android:layout_margin="5dp" android:padding="5dp">
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/request_method"
-                android:id="@+id/fragmentLoginRequestMethod" android:textSize="@dimen/login_titles"
-                android:textStyle="bold" android:layout_marginRight="5dp"/>
-        <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/request_methods_array"
-                android:id="@+id/fragmentLoginRequestMethodSpinner"/>
+                android:editable="false"
+                android:id="@+id/fragmentLoginTargetURI" android:hint="@string/target_path"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"
@@ -85,8 +134,13 @@
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:editable="false"
                 android:id="@+id/fragmentLoginRequestEditText" android:layout_weight="1" android:lines="5"
-                android:editable="false" android:hint="@string/fill_request"/>
+                android:hint="@string/fill_request"/>
         <Button
                 android:layout_width="30dp"
                 android:layout_height="30dp"

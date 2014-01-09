@@ -2,12 +2,12 @@ package com.br.bnsantos.login.example.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.*;
 import com.br.bnsantos.login.example.LoginActivity;
 import com.br.bnsantos.login.example.R;
 import com.br.bnsantos.login.example.dialog.PortPickerDialog;
@@ -24,15 +24,21 @@ import com.br.bnsantos.login.example.utils.Validator;
  * Time: 10:32 AM
  * To change this template use File | Settings | File Templates.
  */
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements AdapterView.OnItemSelectedListener{
+    private static final String PICK_PORT_DIALOG = "PICK_PORT_DIALOG";
+
     private EditText editTextServer;
     private String selectedServer;
-
     private Button connectivityBtn;
 
     private Button portBtn;
+
     private EditText editTextPort;
     private int serverPort = -1;
+    private HttpMethodType httpMethod = HttpMethodType.GET;
+
+    private EditText editTextTargetPath;
+    private EditText editTextPath;
 
     private LoginFragment(){}
 
@@ -72,6 +78,8 @@ public class LoginFragment extends Fragment {
             }
         });
         editTextPort = (EditText)view.findViewById(R.id.fragmentLoginServerPortEditText);
+        editTextTargetPath = (EditText)view.findViewById(R.id.fragmentLoginTargetURI);
+        editTextPath = (EditText)view.findViewById(R.id.fragmentLoginRequestPathEditText);
 
         connectivityBtn = (Button)view.findViewById(R.id.fragmentLoginTestConnectivityBtn);
         connectivityBtn.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +88,24 @@ public class LoginFragment extends Fragment {
                 testConnectivity();
             }
         });
+
+        editTextPath.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                buildTargetURI();
+            }
+        });
+
+        Spinner requestMethodSpinner = (Spinner) view.findViewById(R.id.fragmentLoginRequestMethodSpinner);
+        requestMethodSpinner.setOnItemSelectedListener(this);
 
         view.findViewById(R.id.fragmentLoginDoRequestBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,11 +124,14 @@ public class LoginFragment extends Fragment {
         if(serverPort!=-1){
             editTextPort.setText(Integer.toString(serverPort));
         }
+
+        buildTargetURI();
     }
 
     public void setSelectedServer(String server){
         selectedServer=server;
         editTextServer.setText(server);
+        buildTargetURI();
     }
 
     private void testConnectivity(){
@@ -126,19 +155,51 @@ public class LoginFragment extends Fragment {
 
     private void selectPort(){
         PortPickerDialog portPickerDialog = new PortPickerDialog();
-        portPickerDialog.show(getActivity().getSupportFragmentManager(), "TESTE");
+        portPickerDialog.show(getActivity().getSupportFragmentManager(), PICK_PORT_DIALOG);
     }
 
     public void addPort(int port){
         serverPort = port;
         editTextPort.setText(Integer.toString(port));
         portBtn.setBackgroundResource(R.drawable.checked);
+        buildTargetURI();
     }
 
     private void doRequest(){
-        String pathToAction = "http://" + selectedServer + ":" + serverPort + "/api/v1/lines/9103/search";
-        HttpTask task = new HttpTask<Void, Void>(new StringResponseCommunicator((LoginActivity)getActivity()),
-                null, pathToAction, HttpMethodType.GET);
-        task.execute();
+        String pathToAction = editTextTargetPath.getText().toString();
+        if(pathToAction!=null&&pathToAction.length()>0){
+            HttpTask task = new HttpTask<Void, Void>(new StringResponseCommunicator((LoginActivity)getActivity()),
+                    null, pathToAction, this.httpMethod);
+            task.execute();
+        }else{
+            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.invalid_path), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
+        this.httpMethod = HttpMethodType.valueOf(parent.getItemAtPosition(pos).toString());
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    public void buildTargetURI(){
+        StringBuffer targetURI = new StringBuffer();
+        if(selectedServer!=null){
+            targetURI.append(getString(R.string.server_prefix));
+            targetURI.append(selectedServer);
+            if(serverPort!=-1){
+                targetURI.append(":");
+                targetURI.append(serverPort);
+                targetURI.append("/");
+            }
+            String path = editTextPath.getText().toString();
+            if(path!=null){
+                targetURI.append(path);
+            }
+            editTextTargetPath.setText(targetURI.toString());
+        }
     }
 }
