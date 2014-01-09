@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">LoginExample</string>
+    <string name="app_name">Android-Http-Request</string>
     <string name="action_config_server">Config Server</string>
     <string name="action_config_request">Config Request</string>
     <string name="action_bar_title">Login Request</string>
