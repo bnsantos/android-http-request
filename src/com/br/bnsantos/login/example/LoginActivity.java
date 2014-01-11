@@ -12,9 +12,12 @@ import android.widget.FrameLayout;
 import com.br.bnsantos.login.example.dialog.AddFieldDialog;
 import com.br.bnsantos.login.example.dialog.AddServerDialog;
 import com.br.bnsantos.login.example.dialog.PortPickerDialog;
+import com.br.bnsantos.login.example.entities.JsonField;
 import com.br.bnsantos.login.example.fragments.ConfigRequestFragment;
 import com.br.bnsantos.login.example.fragments.ConfigServerFragment;
 import com.br.bnsantos.login.example.fragments.LoginFragment;
+
+import java.util.ArrayList;
 
 public class LoginActivity extends FragmentActivity implements AddServerDialog.AddServerDialogListener, AddFieldDialog.AddFieldDialogListener,
         PortPickerDialog.PortPickerDialogListener{
@@ -124,6 +127,10 @@ public class LoginActivity extends FragmentActivity implements AddServerDialog.A
     @Override
     public void onPortPickerDialogPositiveClick(PortPickerDialog dialog){
         ((LoginFragment)loginFragment).addPort(dialog.getPort());
+    }
+
+    public ArrayList<JsonField> getRequestBody(){
+        return ((ConfigRequestFragment)configRequestFragment).getFields();
     }
 
 }

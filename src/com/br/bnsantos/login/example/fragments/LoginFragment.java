@@ -15,6 +15,7 @@ import com.br.bnsantos.login.example.http.communicator.StringResponseCommunicato
 import com.br.bnsantos.login.example.http.rest.HttpMethodType;
 import com.br.bnsantos.login.example.http.task.HttpTask;
 import com.br.bnsantos.login.example.tasks.ServerConnectivityTask;
+import com.br.bnsantos.login.example.utils.JsonUtils;
 import com.br.bnsantos.login.example.utils.Validator;
 
 /**
@@ -36,13 +37,15 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     private EditText editTextPort;
     private int serverPort = -1;
     private HttpMethodType httpMethod = HttpMethodType.GET;
-
     private EditText editTextTargetPath;
-    private EditText editTextPath;
 
+    private EditText editTextPath;
     private LoginFragment(){}
 
     private static LoginFragment instance;
+
+    private  String jsonBodyRequest;
+    private EditText jsonBodyRequestEditText;
 
     public static LoginFragment getInstance(){
         if(instance ==null){
@@ -80,6 +83,8 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         editTextPort = (EditText)view.findViewById(R.id.fragmentLoginServerPortEditText);
         editTextTargetPath = (EditText)view.findViewById(R.id.fragmentLoginTargetURI);
         editTextPath = (EditText)view.findViewById(R.id.fragmentLoginRequestPathEditText);
+
+        jsonBodyRequestEditText = (EditText)view.findViewById(R.id.fragmentLoginRequestEditText);
 
         connectivityBtn = (Button)view.findViewById(R.id.fragmentLoginTestConnectivityBtn);
         connectivityBtn.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +129,10 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         if(serverPort!=-1){
             editTextPort.setText(Integer.toString(serverPort));
         }
+
+        updateBody();
+        jsonBodyRequestEditText.setText(jsonBodyRequest);
+
 
         buildTargetURI();
     }
@@ -200,5 +209,9 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
             }
             editTextTargetPath.setText(targetURI.toString());
         }
+    }
+
+    private void updateBody(){
+        jsonBodyRequest = JsonUtils.formatJsonRequest(((LoginActivity) getActivity()).getRequestBody());
     }
 }

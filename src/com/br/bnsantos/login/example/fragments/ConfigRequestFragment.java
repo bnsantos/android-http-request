@@ -10,6 +10,7 @@ import com.br.bnsantos.login.example.LoginActivity;
 import com.br.bnsantos.login.example.R;
 import com.br.bnsantos.login.example.adapter.FieldArrayAdapter;
 import com.br.bnsantos.login.example.dialog.AddFieldDialog;
+import com.br.bnsantos.login.example.entities.JsonField;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class ConfigRequestFragment extends Fragment {
     private static final String REQUEST_BUNDLE = "REQUEST_LOGIN";
     private static final String ADD_FIELD_DIALOG = "ADD_FIELD_DIALOG";
     private ListView configRequest;
-    private ArrayList<String> fields;
+    private ArrayList<JsonField> fields;
     private FieldArrayAdapter fieldsArrayAdapter;
 
     private ConfigRequestFragment(){}
@@ -43,9 +44,9 @@ public class ConfigRequestFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_config_request, container, false);
         configRequest = (ListView)view.findViewById(R.id.configRequestListView);
         if (savedInstanceState != null) {
-            fields = savedInstanceState.getStringArrayList(REQUEST_BUNDLE);
+            fields = savedInstanceState.getParcelableArrayList(REQUEST_BUNDLE);
         }else if (fields==null){
-            fields = new ArrayList<String>();
+            fields = new ArrayList<JsonField>();
         }
         fieldsArrayAdapter = new FieldArrayAdapter(fields, (LoginActivity)getActivity());
         configRequest.setAdapter(fieldsArrayAdapter);
@@ -75,7 +76,7 @@ public class ConfigRequestFragment extends Fragment {
     }
 
     public void addField(String field){
-        fields.add(field);
+        fields.add(new JsonField(field));
         fieldsArrayAdapter.notifyDataSetChanged();
     }
 
@@ -84,6 +85,10 @@ public class ConfigRequestFragment extends Fragment {
         super.onSaveInstanceState(outState);
 
         // Save the current article selection in case we need to recreate the fragment
-        outState.putStringArrayList(REQUEST_BUNDLE, fields);
+        outState.putParcelableArrayList(REQUEST_BUNDLE, fields);
+    }
+
+    public ArrayList<JsonField> getFields() {
+        return fields;
     }
 }
