@@ -31,7 +31,9 @@ public class AddFieldDialog extends DialogFragment {
     AddFieldDialogListener mListener;
 
     private String field;
+    private String fieldValue;
     private EditText editTextField;
+    private EditText editTextFieldValue;
 
     // Override the Fragment.onAttach() method to instantiate the NoticeDialogListener
     @Override
@@ -56,12 +58,14 @@ public class AddFieldDialog extends DialogFragment {
 
         View view = inflater.inflate(R.layout.dialog_add_field, null);
         editTextField = (EditText)view.findViewById(R.id.dialogAddField);
+        editTextFieldValue = (EditText)view.findViewById(R.id.dialogAddFieldValue);
 
         builder.setView(view)
                 .setTitle(R.string.add_field_dialog_title)
                 .setPositiveButton(R.string.add_btn, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         field = editTextField.getText().toString();
+                        fieldValue = editTextFieldValue.getText().toString();
                         mListener.onAddFieldDialogPositiveClick(AddFieldDialog.this);
                     }
                 })
@@ -78,5 +82,9 @@ public class AddFieldDialog extends DialogFragment {
 
     public String getField() {
         return field;
+    }
+
+    public String getFieldValue() {
+        return fieldValue;
     }
 }

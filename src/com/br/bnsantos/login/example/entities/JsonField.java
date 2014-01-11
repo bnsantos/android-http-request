@@ -20,6 +20,11 @@ public class JsonField implements Parcelable {
         this.name = name;
     }
 
+    public JsonField(String name, String value) {
+        this.name = name;
+        this.value = value;
+    }
+
     private JsonField(Parcel in){
         this.name = in.readString();
         this.value = in.readString();

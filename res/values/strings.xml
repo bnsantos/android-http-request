@@ -34,6 +34,7 @@
     <string name="config_request_field_value">Field Value</string>
 
     <string name="add_field_dialog_hint">Type field name</string>
+    <string name="add_field_value_dialog_hint">Type field value</string>
     <string name="add_field_dialog_title">Add Field</string>
 
     <string name="server_available">Server available</string>

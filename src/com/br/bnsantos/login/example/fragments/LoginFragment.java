@@ -211,7 +211,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         }
     }
 
-    private void updateBody(){
+    public void updateBody(){
         jsonBodyRequest = JsonUtils.formatJsonRequest(((LoginActivity) getActivity()).getRequestBody());
     }
 }

@@ -11,11 +11,12 @@
             android:text="@string/config_request_field_name"
             android:id="@+id/componentFieldName" android:singleLine="false" android:layout_weight="1"/>
 
-    <EditText
+    <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/componentFieldValue" android:hint="@string/config_request_field_value"
-            android:layout_weight="1"/>
+            android:id="@+id/componentFieldValue" android:text="@string/config_request_field_value"
+            android:layout_weight="1" android:layout_marginRight="5dp"
+            android:focusable="true"/>
     <Button
             android:layout_width="30dp"
             android:layout_height="30dp"

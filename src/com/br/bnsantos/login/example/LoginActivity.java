@@ -121,7 +121,9 @@ public class LoginActivity extends FragmentActivity implements AddServerDialog.A
 
     @Override
     public void onAddFieldDialogPositiveClick(AddFieldDialog dialog){
-        ((ConfigRequestFragment)configRequestFragment).addField(dialog.getField());
+        ((ConfigRequestFragment)configRequestFragment).addField(dialog.getField(), dialog.getFieldValue());
+        ((LoginFragment)loginFragment).updateBody();
+
     }
 
     @Override

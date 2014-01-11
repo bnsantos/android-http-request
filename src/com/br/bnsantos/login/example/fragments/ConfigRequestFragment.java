@@ -75,8 +75,8 @@ public class ConfigRequestFragment extends Fragment {
         fieldsArrayAdapter.notifyDataSetChanged();
     }
 
-    public void addField(String field){
-        fields.add(new JsonField(field));
+    public void addField(String field, String value){
+        fields.add(new JsonField(field, value));
         fieldsArrayAdapter.notifyDataSetChanged();
     }
 

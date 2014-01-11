@@ -14,6 +14,16 @@ import java.util.ArrayList;
 public class JsonUtils {
 
     public static String formatJsonRequest(ArrayList<JsonField> fields){
+        if(fields!=null && fields.size()>0){
+            StringBuffer json = new StringBuffer("{");
+            for(JsonField field : fields){
+                if(field.getValue()!=null)
+                    json.append("\"" + field.getName() + "\":\"" + field.getValue() + "\",");
+            }
+            json.delete(json.lastIndexOf(","), json.length());
+            json.append("}");
+            return json.toString();
+        }
         return "";
     }
 }

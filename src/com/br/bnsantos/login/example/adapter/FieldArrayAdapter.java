@@ -1,12 +1,13 @@
 package com.br.bnsantos.login.example.adapter;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.TextView;
 import com.br.bnsantos.login.example.LoginActivity;
 import com.br.bnsantos.login.example.R;
 import com.br.bnsantos.login.example.entities.JsonField;
@@ -53,23 +54,10 @@ public class FieldArrayAdapter extends BaseAdapter implements Filterable {
         final JsonField current = fields.get(position);
         fieldName.setText(current.getName());
 
-        EditText fieldValue = (EditText) view.findViewById(R.id.componentFieldValue);
-        fieldValue.setText(current.getValue());
-
-        fieldValue.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                setFieldValue(current, ((EditText) editable).getText().toString());
-            }
-        });
+        TextView fieldValue = (TextView) view.findViewById(R.id.componentFieldValue);
+        if(current.getValue()!=null){
+            fieldValue.setText(current.getValue());
+        }
 
         view.findViewById(R.id.componentFieldRemoveBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,13 +95,5 @@ public class FieldArrayAdapter extends BaseAdapter implements Filterable {
                 notifyDataSetChanged();
             }
         };
-    }
-
-    private void setFieldValue(JsonField current, String newValue){
-        current.setValue(newValue);
-    }
-
-    public ArrayList<JsonField> getFields() {
-        return fields;
     }
 }
