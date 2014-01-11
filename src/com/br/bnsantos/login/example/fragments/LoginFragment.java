@@ -183,9 +183,14 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
                             null, pathToAction, this.httpMethod);
                     taskGet.execute();
                 case POST:
-                    HttpTask taskPost = new HttpTask<Void, Void>(new StringResponseCommunicator((LoginActivity)getActivity()),
-                            null, pathToAction, this.httpMethod);
-                    taskPost.execute(jsonBodyRequestEditText.getText().toString());
+                    String json = jsonBodyRequestEditText.getText().toString();
+                    if(JsonUtils.isJSONValid(json)){
+                        HttpTask taskPost = new HttpTask<Void, Void>(new StringResponseCommunicator((LoginActivity)getActivity()),
+                                null, pathToAction, this.httpMethod);
+                        taskPost.execute(json);
+                    }else{
+                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.invalid_json), Toast.LENGTH_SHORT).show();
+                    }
             }
         }else{
             Toast.makeText(getActivity().getApplicationContext(), getString(R.string.invalid_path), Toast.LENGTH_SHORT).show();

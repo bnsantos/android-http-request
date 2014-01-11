@@ -1,6 +1,8 @@
 package com.br.bnsantos.login.example.utils;
 
 import com.br.bnsantos.login.example.entities.JsonField;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -20,10 +22,20 @@ public class JsonUtils {
                 if(field.getValue()!=null)
                     json.append("\"" + field.getName() + "\":\"" + field.getValue() + "\",");
             }
-            json.delete(json.lastIndexOf(","), json.length());
+            //json.delete(json.lastIndexOf(","), json.length());
             json.append("}");
             return json.toString();
         }
         return "";
+    }
+
+    public static boolean isJSONValid(String test)
+    {
+        try {
+            new JSONObject(test);
+            return true;
+        } catch(JSONException ex) {
+            return false;
+        }
     }
 }
