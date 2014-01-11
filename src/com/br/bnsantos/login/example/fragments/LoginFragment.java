@@ -213,5 +213,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
     public void updateBody(){
         jsonBodyRequest = JsonUtils.formatJsonRequest(((LoginActivity) getActivity()).getRequestBody());
+        jsonBodyRequestEditText.setText(jsonBodyRequest);
+
     }
 }
