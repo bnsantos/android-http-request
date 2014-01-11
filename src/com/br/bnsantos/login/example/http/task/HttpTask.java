@@ -4,8 +4,10 @@ import android.util.Log;
 import com.br.bnsantos.login.example.http.response.BasicResponse;
 import com.br.bnsantos.login.example.http.rest.HttpMethodType;
 import com.br.bnsantos.login.example.http.rest.RestGet;
+import com.br.bnsantos.login.example.http.rest.RestPost;
 import com.br.bnsantos.login.example.http.utils.BasicRequester;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.cookie.Cookie;
 
 /**
@@ -31,11 +33,19 @@ public class HttpTask<P, PG> extends AbstractHttpTask<P, PG> {
     @Override
     protected BasicResponse doInBackground(P... params) {
         Log.i(this.getDebugTag(), "Executing Task in background");
-        RestGet user;
         try {
-            user = new RestGet(this.getActionPath(), cookie);
-            BasicRequester<HttpGet> requester = new BasicRequester<HttpGet>();
-            return requester.doRequest(user);
+
+            switch (this.type){
+                case GET:
+                    BasicRequester<HttpGet> requesterGet = new BasicRequester<HttpGet>();
+                    Log.d(this.getDebugTag(), "Performing RestGet");
+                    return requesterGet.doRequest(new RestGet(this.getActionPath(), cookie));
+                case POST:
+                    BasicRequester<HttpPost> requesterPost = new BasicRequester<HttpPost>();
+                    Log.d(this.getDebugTag(), "Performing RestPost");
+                    return requesterPost.doRequest(new RestPost(this.getActionPath(), (String)params[0], cookie));
+            }
+
         } catch (Exception e) {
             Log.d(this.getDebugTag(), "Failed on request", e);
         }
