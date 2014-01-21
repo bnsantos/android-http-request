@@ -25,7 +25,7 @@ import com.br.bnsantos.login.example.utils.Validator;
  * Time: 10:32 AM
  * To change this template use File | Settings | File Templates.
  */
-public class LoginFragment extends Fragment implements AdapterView.OnItemSelectedListener{
+public class RequestFragment extends Fragment implements AdapterView.OnItemSelectedListener{
     private static final String PICK_PORT_DIALOG = "PICK_PORT_DIALOG";
 
     private EditText editTextServer;
@@ -40,16 +40,16 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     private EditText editTextTargetPath;
 
     private EditText editTextPath;
-    private LoginFragment(){}
+    private RequestFragment(){}
 
-    private static LoginFragment instance;
+    private static RequestFragment instance;
 
     private  String jsonBodyRequest;
     private EditText jsonBodyRequestEditText;
 
-    public static LoginFragment getInstance(){
+    public static RequestFragment getInstance(){
         if(instance ==null){
-            instance = new LoginFragment();
+            instance = new RequestFragment();
         }
         return instance;
     }

@@ -15,7 +15,7 @@ import com.br.bnsantos.login.example.dialog.PortPickerDialog;
 import com.br.bnsantos.login.example.entities.JsonField;
 import com.br.bnsantos.login.example.fragments.ConfigRequestFragment;
 import com.br.bnsantos.login.example.fragments.ConfigServerFragment;
-import com.br.bnsantos.login.example.fragments.LoginFragment;
+import com.br.bnsantos.login.example.fragments.RequestFragment;
 
 import java.util.ArrayList;
 
@@ -57,7 +57,7 @@ public class RequestActivity extends FragmentActivity implements AddServerDialog
 
     private void initFragments(){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        loginFragment = LoginFragment.getInstance();
+        loginFragment = RequestFragment.getInstance();
         configServerFragment = ConfigServerFragment.getInstance();
         configRequestFragment = ConfigRequestFragment.getInstance();
         fragmentTransaction.add(R.id.loginLayout, loginFragment);
@@ -110,7 +110,7 @@ public class RequestActivity extends FragmentActivity implements AddServerDialog
     }
 
     public void selectedServer(String server){
-        ((LoginFragment)loginFragment).setSelectedServer(server);
+        ((RequestFragment)loginFragment).setSelectedServer(server);
         showLoginFragment();
     }
 
@@ -122,13 +122,13 @@ public class RequestActivity extends FragmentActivity implements AddServerDialog
     @Override
     public void onAddFieldDialogPositiveClick(AddFieldDialog dialog){
         ((ConfigRequestFragment)configRequestFragment).addField(dialog.getField(), dialog.getFieldValue());
-        ((LoginFragment)loginFragment).updateBody();
+        ((RequestFragment)loginFragment).updateBody();
 
     }
 
     @Override
     public void onPortPickerDialogPositiveClick(PortPickerDialog dialog){
-        ((LoginFragment)loginFragment).addPort(dialog.getPort());
+        ((RequestFragment)loginFragment).addPort(dialog.getPort());
     }
 
     public ArrayList<JsonField> getRequestBody(){

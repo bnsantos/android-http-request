@@ -2,7 +2,7 @@ package com.br.bnsantos.login.example.tasks;
 
 import android.os.AsyncTask;
 import com.br.bnsantos.login.example.R;
-import com.br.bnsantos.login.example.fragments.LoginFragment;
+import com.br.bnsantos.login.example.fragments.RequestFragment;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -18,10 +18,10 @@ import java.net.UnknownHostException;
 public class ServerConnectivityTask extends AsyncTask<String, Void, String> {
 
     private boolean serverAvailable = false;
-    private LoginFragment loginFragment;
+    private RequestFragment requestFragment;
 
-    public ServerConnectivityTask(LoginFragment loginFragment){
-        this.loginFragment = loginFragment;
+    public ServerConnectivityTask(RequestFragment requestFragment){
+        this.requestFragment = requestFragment;
     }
 
     public String doInBackground(String... urls){
@@ -29,19 +29,19 @@ public class ServerConnectivityTask extends AsyncTask<String, Void, String> {
             InetAddress address = InetAddress.getByName(urls[0]);
             if(address.isReachable(1000)){
                 serverAvailable = true;
-                return loginFragment.getString(R.string.server_available);
+                return requestFragment.getString(R.string.server_available);
             }else{
                 serverAvailable = false;
-                return loginFragment.getString(R.string.server_not_available);
+                return requestFragment.getString(R.string.server_not_available);
             }
         }catch (UnknownHostException e){
-            return loginFragment.getString(R.string.server_not_available) + " " + e.getMessage();
+            return requestFragment.getString(R.string.server_not_available) + " " + e.getMessage();
         }catch (IOException e){
-            return loginFragment.getString(R.string.server_not_available) + " " + e.getMessage();
+            return requestFragment.getString(R.string.server_not_available) + " " + e.getMessage();
         }
     }
 
     protected void onPostExecute(String errorMessage) {
-        loginFragment.setServerConnectivity(serverAvailable, errorMessage);
+        requestFragment.setServerConnectivity(serverAvailable, errorMessage);
     }
 }
