@@ -25,6 +25,7 @@ public class StringResponseCommunicator implements ITaskCommunicator<BasicRespon
 
     @Override
     public void onPostExecute(BasicResponse item) {
+        currentActivity.showProgressBar(false);
         if (item != null) {
             Toast.makeText(currentActivity.getApplicationContext(), item.getStatus() + " - " + item.getResponse(), Toast.LENGTH_LONG).show();
         } else {

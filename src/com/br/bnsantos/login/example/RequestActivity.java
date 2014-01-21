@@ -27,7 +27,7 @@ public class RequestActivity extends FragmentActivity implements AddServerDialog
 
     private FrameLayout frameLayout;
 
-    private Fragment loginFragment;
+    private Fragment requestFragment;
     private Fragment configServerFragment;
     private Fragment configRequestFragment;
 
@@ -57,10 +57,10 @@ public class RequestActivity extends FragmentActivity implements AddServerDialog
 
     private void initFragments(){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        loginFragment = RequestFragment.getInstance();
+        requestFragment = RequestFragment.getInstance();
         configServerFragment = ConfigServerFragment.getInstance();
         configRequestFragment = ConfigRequestFragment.getInstance();
-        fragmentTransaction.add(R.id.loginLayout, loginFragment);
+        fragmentTransaction.add(R.id.loginLayout, requestFragment);
         fragmentTransaction.add(R.id.loginLayout, configRequestFragment);
         fragmentTransaction.add(R.id.loginLayout, configServerFragment);
         fragmentTransaction.hide(configRequestFragment);
@@ -96,21 +96,21 @@ public class RequestActivity extends FragmentActivity implements AddServerDialog
 
     public void showConfigServerFragment(){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.hide(configRequestFragment).hide(loginFragment).show(configServerFragment).commit();
+        fragmentTransaction.hide(configRequestFragment).hide(requestFragment).show(configServerFragment).commit();
     }
 
     public void showConfigRequestFragment(){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.hide(configServerFragment).hide(loginFragment).show(configRequestFragment).commit();
+        fragmentTransaction.hide(configServerFragment).hide(requestFragment).show(configRequestFragment).commit();
     }
 
     private void showLoginFragment(){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.hide(configServerFragment).hide(configRequestFragment).show(loginFragment).commit();
+        fragmentTransaction.hide(configServerFragment).hide(configRequestFragment).show(requestFragment).commit();
     }
 
     public void selectedServer(String server){
-        ((RequestFragment)loginFragment).setSelectedServer(server);
+        ((RequestFragment) requestFragment).setSelectedServer(server);
         showLoginFragment();
     }
 
@@ -122,17 +122,21 @@ public class RequestActivity extends FragmentActivity implements AddServerDialog
     @Override
     public void onAddFieldDialogPositiveClick(AddFieldDialog dialog){
         ((ConfigRequestFragment)configRequestFragment).addField(dialog.getField(), dialog.getFieldValue());
-        ((RequestFragment)loginFragment).updateBody();
+        ((RequestFragment) requestFragment).updateBody();
 
     }
 
     @Override
     public void onPortPickerDialogPositiveClick(PortPickerDialog dialog){
-        ((RequestFragment)loginFragment).addPort(dialog.getPort());
+        ((RequestFragment) requestFragment).addPort(dialog.getPort());
     }
 
     public ArrayList<JsonField> getRequestBody(){
         return ((ConfigRequestFragment)configRequestFragment).getFields();
+    }
+
+    public void showProgressBar(boolean flag){
+        ((RequestFragment)requestFragment).showProgressSpinner(flag);
     }
 
 }

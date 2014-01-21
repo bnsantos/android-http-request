@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import com.br.bnsantos.login.example.R;
 import com.br.bnsantos.login.example.RequestActivity;
+import com.br.bnsantos.login.example.components.ProgressSpinner;
 import com.br.bnsantos.login.example.dialog.PortPickerDialog;
 import com.br.bnsantos.login.example.http.communicator.StringResponseCommunicator;
 import com.br.bnsantos.login.example.http.rest.HttpMethodType;
@@ -46,6 +47,8 @@ public class RequestFragment extends Fragment implements AdapterView.OnItemSelec
 
     private  String jsonBodyRequest;
     private EditText jsonBodyRequestEditText;
+
+    private ProgressSpinner progressSpinner;
 
     public static RequestFragment getInstance(){
         if(instance ==null){
@@ -118,6 +121,9 @@ public class RequestFragment extends Fragment implements AdapterView.OnItemSelec
                 doRequest();
             }
         });
+
+        progressSpinner = new ProgressSpinner((LinearLayout) view.findViewById(R.id.fragmentRequestProgressBar),
+                (LinearLayout) view.findViewById(R.id.fragmentRequestResponseLayout), getResources().getInteger(android.R.integer.config_shortAnimTime));
         return view;
     }
 
@@ -177,6 +183,7 @@ public class RequestFragment extends Fragment implements AdapterView.OnItemSelec
     private void doRequest(){
         String pathToAction = editTextTargetPath.getText().toString();
         if(pathToAction!=null&&pathToAction.length()>0){
+            showProgressSpinner(true);
             switch (this.httpMethod){
                 case GET:
                     HttpTask taskGet = new HttpTask<Void, Void>(new StringResponseCommunicator((RequestActivity)getActivity()),
@@ -226,6 +233,9 @@ public class RequestFragment extends Fragment implements AdapterView.OnItemSelec
     public void updateBody(){
         jsonBodyRequest = JsonUtils.formatJsonRequest(((RequestActivity) getActivity()).getRequestBody());
         jsonBodyRequestEditText.setText(jsonBodyRequest);
+    }
 
+    public void showProgressSpinner(boolean show) {
+        progressSpinner.show(show);
     }
 }
