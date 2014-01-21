@@ -2,5 +2,5 @@
 <resources>
     <dimen name="config_server_title">18sp</dimen>
     <dimen name="config_request_title">18sp</dimen>
-    <dimen name="login_titles">16sp</dimen>
+    <dimen name="request_activity_titles">16sp</dimen>
 </resources>

@@ -57,36 +57,36 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_request, container, false);
-        editTextServer = (EditText)view.findViewById(R.id.fragmentLoginServerEditText);
+        editTextServer = (EditText)view.findViewById(R.id.fragmentRequestServerEditText);
 
-        view.findViewById(R.id.fragmentLoginEditServerBtn).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.fragmentRequestEditServerBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((RequestActivity)getActivity()).showConfigServerFragment();
             }
         });
 
-        view.findViewById(R.id.fragmentLoginEditRequestBtn).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.fragmentRequestEditRequestBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((RequestActivity)getActivity()).showConfigRequestFragment();
             }
         });
 
-        portBtn = (Button)view.findViewById(R.id.fragmentLoginServerPortBtn);
+        portBtn = (Button)view.findViewById(R.id.fragmentRequestServerPortBtn);
         portBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectPort();
             }
         });
-        editTextPort = (EditText)view.findViewById(R.id.fragmentLoginServerPortEditText);
-        editTextTargetPath = (EditText)view.findViewById(R.id.fragmentLoginTargetURI);
-        editTextPath = (EditText)view.findViewById(R.id.fragmentLoginRequestPathEditText);
+        editTextPort = (EditText)view.findViewById(R.id.fragmentRequestServerPortEditText);
+        editTextTargetPath = (EditText)view.findViewById(R.id.fragmentRequestTargetURI);
+        editTextPath = (EditText)view.findViewById(R.id.fragmentRequestPathEditText);
 
-        jsonBodyRequestEditText = (EditText)view.findViewById(R.id.fragmentLoginRequestEditText);
+        jsonBodyRequestEditText = (EditText)view.findViewById(R.id.fragmentRequestEditText);
 
-        connectivityBtn = (Button)view.findViewById(R.id.fragmentLoginTestConnectivityBtn);
+        connectivityBtn = (Button)view.findViewById(R.id.fragmentRequestTestConnectivityBtn);
         connectivityBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,7 +112,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         Spinner requestMethodSpinner = (Spinner) view.findViewById(R.id.fragmentLoginRequestMethodSpinner);
         requestMethodSpinner.setOnItemSelectedListener(this);
 
-        view.findViewById(R.id.fragmentLoginDoRequestBtn).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.fragmentRequestDoRequestBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 doRequest();
