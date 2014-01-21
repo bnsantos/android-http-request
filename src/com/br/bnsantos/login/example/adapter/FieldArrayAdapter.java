@@ -8,8 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import com.br.bnsantos.login.example.LoginActivity;
 import com.br.bnsantos.login.example.R;
+import com.br.bnsantos.login.example.RequestActivity;
 import com.br.bnsantos.login.example.entities.JsonField;
 
 import java.util.ArrayList;
@@ -23,13 +23,13 @@ import java.util.ArrayList;
  */
 public class FieldArrayAdapter extends BaseAdapter implements Filterable {
     private ArrayList<JsonField> fields;
-    private LoginActivity loginActivity;
+    private RequestActivity requestActivity;
     private final LayoutInflater inflater;
 
-    public FieldArrayAdapter(ArrayList<JsonField> fields, LoginActivity loginActivity) {
-        inflater = (LayoutInflater) loginActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public FieldArrayAdapter(ArrayList<JsonField> fields, RequestActivity requestActivity) {
+        inflater = (LayoutInflater) requestActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.fields = fields;
-        this.loginActivity = loginActivity;
+        this.requestActivity = requestActivity;
     }
 
     public Object getItem(int position) {

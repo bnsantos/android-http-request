@@ -19,7 +19,7 @@ import com.br.bnsantos.login.example.fragments.LoginFragment;
 
 import java.util.ArrayList;
 
-public class LoginActivity extends FragmentActivity implements AddServerDialog.AddServerDialogListener, AddFieldDialog.AddFieldDialogListener,
+public class RequestActivity extends FragmentActivity implements AddServerDialog.AddServerDialogListener, AddFieldDialog.AddFieldDialogListener,
         PortPickerDialog.PortPickerDialogListener{
 
     // action bar
@@ -37,7 +37,7 @@ public class LoginActivity extends FragmentActivity implements AddServerDialog.A
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_request);
 
         actionBar = getActionBar();
         // Hide the action bar title

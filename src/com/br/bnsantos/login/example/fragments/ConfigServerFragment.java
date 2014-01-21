@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
-import com.br.bnsantos.login.example.LoginActivity;
 import com.br.bnsantos.login.example.R;
+import com.br.bnsantos.login.example.RequestActivity;
 import com.br.bnsantos.login.example.adapter.ServerArrayAdapter;
 import com.br.bnsantos.login.example.dialog.AddServerDialog;
 import com.br.bnsantos.login.example.utils.Validator;
@@ -51,7 +51,7 @@ public class ConfigServerFragment extends Fragment {
         }else if (servers==null){
             servers = new ArrayList<String>();
         }
-        serverArrayAdapter = new ServerArrayAdapter(servers, (LoginActivity)getActivity());
+        serverArrayAdapter = new ServerArrayAdapter(servers, (RequestActivity)getActivity());
         configServer.setAdapter(serverArrayAdapter);
 
         view.findViewById(R.id.configServerAddServerBtn).setOnClickListener(new View.OnClickListener() {

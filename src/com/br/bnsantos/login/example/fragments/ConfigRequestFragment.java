@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import com.br.bnsantos.login.example.LoginActivity;
 import com.br.bnsantos.login.example.R;
+import com.br.bnsantos.login.example.RequestActivity;
 import com.br.bnsantos.login.example.adapter.FieldArrayAdapter;
 import com.br.bnsantos.login.example.dialog.AddFieldDialog;
 import com.br.bnsantos.login.example.entities.JsonField;
@@ -48,7 +48,7 @@ public class ConfigRequestFragment extends Fragment {
         }else if (fields==null){
             fields = new ArrayList<JsonField>();
         }
-        fieldsArrayAdapter = new FieldArrayAdapter(fields, (LoginActivity)getActivity());
+        fieldsArrayAdapter = new FieldArrayAdapter(fields, (RequestActivity)getActivity());
         configRequest.setAdapter(fieldsArrayAdapter);
 
         view.findViewById(R.id.configRequestAddFieldBtn).setOnClickListener(new View.OnClickListener() {

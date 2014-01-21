@@ -8,8 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import com.br.bnsantos.login.example.LoginActivity;
 import com.br.bnsantos.login.example.R;
+import com.br.bnsantos.login.example.RequestActivity;
 
 import java.util.ArrayList;
 
@@ -22,13 +22,13 @@ import java.util.ArrayList;
  */
 public class ServerArrayAdapter extends BaseAdapter implements Filterable {
     private ArrayList<String> servers;
-    private LoginActivity loginActivity;
+    private RequestActivity requestActivity;
     private final LayoutInflater inflater;
 
-    public ServerArrayAdapter(ArrayList<String> servers, LoginActivity loginActivity) {
-        inflater = (LayoutInflater) loginActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public ServerArrayAdapter(ArrayList<String> servers, RequestActivity requestActivity) {
+        inflater = (LayoutInflater) requestActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.servers = servers;
-        this.loginActivity = loginActivity;
+        this.requestActivity = requestActivity;
     }
 
     public Object getItem(int position) {
@@ -56,7 +56,7 @@ public class ServerArrayAdapter extends BaseAdapter implements Filterable {
         view.findViewById(R.id.componentServerLayout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginActivity.selectedServer(current);
+                requestActivity.selectedServer(current);
             }
         });
 

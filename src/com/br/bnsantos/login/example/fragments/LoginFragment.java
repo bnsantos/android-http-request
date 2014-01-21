@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import com.br.bnsantos.login.example.LoginActivity;
 import com.br.bnsantos.login.example.R;
+import com.br.bnsantos.login.example.RequestActivity;
 import com.br.bnsantos.login.example.dialog.PortPickerDialog;
 import com.br.bnsantos.login.example.http.communicator.StringResponseCommunicator;
 import com.br.bnsantos.login.example.http.rest.HttpMethodType;
@@ -56,20 +56,20 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_request, container, false);
         editTextServer = (EditText)view.findViewById(R.id.fragmentLoginServerEditText);
 
         view.findViewById(R.id.fragmentLoginEditServerBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((LoginActivity)getActivity()).showConfigServerFragment();
+                ((RequestActivity)getActivity()).showConfigServerFragment();
             }
         });
 
         view.findViewById(R.id.fragmentLoginEditRequestBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((LoginActivity)getActivity()).showConfigRequestFragment();
+                ((RequestActivity)getActivity()).showConfigRequestFragment();
             }
         });
 
@@ -179,13 +179,13 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         if(pathToAction!=null&&pathToAction.length()>0){
             switch (this.httpMethod){
                 case GET:
-                    HttpTask taskGet = new HttpTask<Void, Void>(new StringResponseCommunicator((LoginActivity)getActivity()),
+                    HttpTask taskGet = new HttpTask<Void, Void>(new StringResponseCommunicator((RequestActivity)getActivity()),
                             null, pathToAction, this.httpMethod);
                     taskGet.execute();
                 case POST:
                     String json = jsonBodyRequestEditText.getText().toString();
                     if(JsonUtils.isJSONValid(json)){
-                        HttpTask taskPost = new HttpTask<Void, Void>(new StringResponseCommunicator((LoginActivity)getActivity()),
+                        HttpTask taskPost = new HttpTask<Void, Void>(new StringResponseCommunicator((RequestActivity)getActivity()),
                                 null, pathToAction, this.httpMethod);
                         taskPost.execute(json);
                     }else{
@@ -224,7 +224,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     }
 
     public void updateBody(){
-        jsonBodyRequest = JsonUtils.formatJsonRequest(((LoginActivity) getActivity()).getRequestBody());
+        jsonBodyRequest = JsonUtils.formatJsonRequest(((RequestActivity) getActivity()).getRequestBody());
         jsonBodyRequestEditText.setText(jsonBodyRequest);
 
     }

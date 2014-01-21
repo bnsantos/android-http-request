@@ -2,7 +2,7 @@ package com.br.bnsantos.login.example.http.communicator;
 
 import android.util.Log;
 import android.widget.Toast;
-import com.br.bnsantos.login.example.LoginActivity;
+import com.br.bnsantos.login.example.RequestActivity;
 import com.br.bnsantos.login.example.http.response.BasicResponse;
 import com.br.bnsantos.login.example.http.task.ITaskCommunicator;
 
@@ -16,9 +16,9 @@ import com.br.bnsantos.login.example.http.task.ITaskCommunicator;
 public class StringResponseCommunicator implements ITaskCommunicator<BasicResponse>{
     private static String TAG = StringResponseCommunicator.class.getName();
 
-    private LoginActivity currentActivity;
+    private RequestActivity currentActivity;
 
-    public StringResponseCommunicator(LoginActivity activity) {
+    public StringResponseCommunicator(RequestActivity activity) {
         super();
         this.currentActivity = activity;
     }
