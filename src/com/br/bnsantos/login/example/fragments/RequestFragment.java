@@ -50,6 +50,9 @@ public class RequestFragment extends Fragment implements AdapterView.OnItemSelec
 
     private ProgressSpinner progressSpinner;
 
+    private EditText responseStatus;
+    private EditText responseTextView;
+
     public static RequestFragment getInstance(){
         if(instance ==null){
             instance = new RequestFragment();
@@ -86,6 +89,9 @@ public class RequestFragment extends Fragment implements AdapterView.OnItemSelec
         editTextPort = (EditText)view.findViewById(R.id.fragmentRequestServerPortEditText);
         editTextTargetPath = (EditText)view.findViewById(R.id.fragmentRequestTargetURI);
         editTextPath = (EditText)view.findViewById(R.id.fragmentRequestPathEditText);
+
+        responseStatus = (EditText)view.findViewById(R.id.fragmentRequestResponseStatusEditText);
+        responseTextView = (EditText)view.findViewById(R.id.fragmentRequestResponseTextView);
 
         jsonBodyRequestEditText = (EditText)view.findViewById(R.id.fragmentRequestEditText);
 
@@ -186,13 +192,13 @@ public class RequestFragment extends Fragment implements AdapterView.OnItemSelec
             showProgressSpinner(true);
             switch (this.httpMethod){
                 case GET:
-                    HttpTask taskGet = new HttpTask<Void, Void>(new StringResponseCommunicator((RequestActivity)getActivity()),
+                    HttpTask taskGet = new HttpTask<Void, Void>(new StringResponseCommunicator(this),
                             null, pathToAction, this.httpMethod);
                     taskGet.execute();
                 case POST:
                     String json = jsonBodyRequestEditText.getText().toString();
                     if(JsonUtils.isJSONValid(json)){
-                        HttpTask taskPost = new HttpTask<Void, Void>(new StringResponseCommunicator((RequestActivity)getActivity()),
+                        HttpTask taskPost = new HttpTask<Void, Void>(new StringResponseCommunicator(this),
                                 null, pathToAction, this.httpMethod);
                         taskPost.execute(json);
                     }else{
@@ -237,5 +243,11 @@ public class RequestFragment extends Fragment implements AdapterView.OnItemSelec
 
     public void showProgressSpinner(boolean show) {
         progressSpinner.show(show);
+    }
+
+    public void setHttpResponse(int status, String response){
+        responseStatus.setText(Integer.toString(status));
+        responseTextView.setText(response);
+
     }
 }

@@ -134,9 +134,4 @@ public class RequestActivity extends FragmentActivity implements AddServerDialog
     public ArrayList<JsonField> getRequestBody(){
         return ((ConfigRequestFragment)configRequestFragment).getFields();
     }
-
-    public void showProgressBar(boolean flag){
-        ((RequestFragment)requestFragment).showProgressSpinner(flag);
-    }
-
 }

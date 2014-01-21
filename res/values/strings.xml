@@ -43,4 +43,6 @@
     <string name="server_prefix">http://</string>
     <string name="invalid_path">Invalid Path</string>
     <string name="invalid_json">Invalid Json Body request</string>
+
+    <string name="response_status">Response status code</string>
 </resources>

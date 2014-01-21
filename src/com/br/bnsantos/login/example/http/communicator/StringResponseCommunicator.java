@@ -2,7 +2,7 @@ package com.br.bnsantos.login.example.http.communicator;
 
 import android.util.Log;
 import android.widget.Toast;
-import com.br.bnsantos.login.example.RequestActivity;
+import com.br.bnsantos.login.example.fragments.RequestFragment;
 import com.br.bnsantos.login.example.http.response.BasicResponse;
 import com.br.bnsantos.login.example.http.task.ITaskCommunicator;
 
@@ -16,21 +16,21 @@ import com.br.bnsantos.login.example.http.task.ITaskCommunicator;
 public class StringResponseCommunicator implements ITaskCommunicator<BasicResponse>{
     private static String TAG = StringResponseCommunicator.class.getName();
 
-    private RequestActivity currentActivity;
+    private RequestFragment requestFragment;
 
-    public StringResponseCommunicator(RequestActivity activity) {
+    public StringResponseCommunicator(RequestFragment fragment) {
         super();
-        this.currentActivity = activity;
+        this.requestFragment = fragment;
     }
 
     @Override
     public void onPostExecute(BasicResponse item) {
-        currentActivity.showProgressBar(false);
+        requestFragment.showProgressSpinner(false);
         if (item != null) {
-            Toast.makeText(currentActivity.getApplicationContext(), item.getStatus() + " - " + item.getResponse(), Toast.LENGTH_LONG).show();
+            requestFragment.setHttpResponse(item.getStatus(), item.getResponse());
         } else {
             Log.e(TAG, "Response is null");
-            Toast.makeText(currentActivity.getApplicationContext(), "Response null", Toast.LENGTH_LONG).show();
+            Toast.makeText(requestFragment.getActivity().getApplicationContext(), item.getStatus() + " - " + item.getResponse(), Toast.LENGTH_LONG).show();
         }
     }
 
