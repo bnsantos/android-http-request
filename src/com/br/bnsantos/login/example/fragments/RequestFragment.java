@@ -16,6 +16,7 @@ import com.br.bnsantos.login.example.http.communicator.StringResponseCommunicato
 import com.br.bnsantos.login.example.http.rest.HttpMethodType;
 import com.br.bnsantos.login.example.http.task.HttpTask;
 import com.br.bnsantos.login.example.tasks.ServerConnectivityTask;
+import com.br.bnsantos.login.example.utils.InternetConnection;
 import com.br.bnsantos.login.example.utils.JsonUtils;
 import com.br.bnsantos.login.example.utils.Validator;
 
@@ -99,7 +100,7 @@ public class RequestFragment extends Fragment implements AdapterView.OnItemSelec
         connectivityBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                testConnectivity();
+                testServerConnectivity();
             }
         });
 
@@ -155,13 +156,17 @@ public class RequestFragment extends Fragment implements AdapterView.OnItemSelec
         buildTargetURI();
     }
 
-    private void testConnectivity(){
-        String serverAddress = editTextServer.getText().toString();
-        if(Validator.validateServerAddress(serverAddress)){
-            ServerConnectivityTask task = new ServerConnectivityTask(this);
-            task.execute(serverAddress);
-        }else{
-            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.login_request_select_server), Toast.LENGTH_SHORT).show();
+    private void testServerConnectivity(){
+        if(InternetConnection.isConnectingToInternet(getActivity().getApplicationContext())){
+            String serverAddress = editTextServer.getText().toString();
+            if(Validator.validateServerAddress(serverAddress)){
+                ServerConnectivityTask task = new ServerConnectivityTask(this);
+                task.execute(serverAddress);
+            }else{
+                Toast.makeText(getActivity().getApplicationContext(), getString(R.string.login_request_select_server), Toast.LENGTH_SHORT).show();
+            }
+        } else{
+            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -187,26 +192,30 @@ public class RequestFragment extends Fragment implements AdapterView.OnItemSelec
     }
 
     private void doRequest(){
-        String pathToAction = editTextTargetPath.getText().toString();
-        if(pathToAction!=null&&pathToAction.length()>0){
-            showProgressSpinner(true);
-            switch (this.httpMethod){
-                case GET:
-                    HttpTask taskGet = new HttpTask<Void, Void>(new StringResponseCommunicator(this),
-                            null, pathToAction, this.httpMethod);
-                    taskGet.execute();
-                case POST:
-                    String json = jsonBodyRequestEditText.getText().toString();
-                    if(JsonUtils.isJSONValid(json)){
-                        HttpTask taskPost = new HttpTask<Void, Void>(new StringResponseCommunicator(this),
+        if(InternetConnection.isConnectingToInternet(getActivity().getApplicationContext())){
+            String pathToAction = editTextTargetPath.getText().toString();
+            if(pathToAction!=null&&pathToAction.length()>0){
+                showProgressSpinner(true);
+                switch (this.httpMethod){
+                    case GET:
+                        HttpTask taskGet = new HttpTask<Void, Void>(new StringResponseCommunicator(this),
                                 null, pathToAction, this.httpMethod);
-                        taskPost.execute(json);
-                    }else{
-                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.invalid_json), Toast.LENGTH_SHORT).show();
-                    }
+                        taskGet.execute();
+                    case POST:
+                        String json = jsonBodyRequestEditText.getText().toString();
+                        if(JsonUtils.isJSONValid(json)){
+                            HttpTask taskPost = new HttpTask<Void, Void>(new StringResponseCommunicator(this),
+                                    null, pathToAction, this.httpMethod);
+                            taskPost.execute(json);
+                        }else{
+                            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.invalid_json), Toast.LENGTH_SHORT).show();
+                        }
+                }
+            }else{
+                Toast.makeText(getActivity().getApplicationContext(), getString(R.string.invalid_path), Toast.LENGTH_SHORT).show();
             }
         }else{
-            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.invalid_path), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -248,6 +257,5 @@ public class RequestFragment extends Fragment implements AdapterView.OnItemSelec
     public void setHttpResponse(int status, String response){
         responseStatus.setText(Integer.toString(status));
         responseTextView.setText(response);
-
     }
 }

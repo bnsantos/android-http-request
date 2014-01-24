@@ -45,4 +45,6 @@
     <string name="invalid_json">Invalid Json Body request</string>
 
     <string name="response_status">Response status code</string>
+
+    <string name="no_internet">No internet connection available</string>
 </resources>
