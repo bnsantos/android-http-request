@@ -8,5 +8,6 @@
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/dialogAddServerServer" android:hint="@string/add_server_dialog_hint"/>
+            android:id="@+id/dialogAddServerServer" android:hint="@string/add_server_dialog_hint"
+            android:inputType="textPersonName"/>
 </LinearLayout>
