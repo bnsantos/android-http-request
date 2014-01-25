@@ -31,6 +31,12 @@ public class JsonUtils {
 
     public static boolean isJSONValid(String test)
     {
+        if(test == null){
+            return false;
+        }
+        if(test.length()==0){
+            return true;
+        }
         try {
             new JSONObject(test);
             return true;
