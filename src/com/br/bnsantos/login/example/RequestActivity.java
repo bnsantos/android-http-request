@@ -2,8 +2,6 @@ package com.br.bnsantos.login.example;
 
 import android.app.ActionBar;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,20 +14,25 @@ import com.br.bnsantos.login.example.entities.JsonField;
 import com.br.bnsantos.login.example.fragments.ConfigRequestFragment;
 import com.br.bnsantos.login.example.fragments.ConfigServerFragment;
 import com.br.bnsantos.login.example.fragments.RequestFragment;
+import com.google.inject.Inject;
+import roboguice.activity.RoboFragmentActivity;
+import roboguice.inject.ContentView;
+import roboguice.inject.InjectView;
 
 import java.util.ArrayList;
 
-public class RequestActivity extends FragmentActivity implements AddServerDialog.AddServerDialogListener, AddFieldDialog.AddFieldDialogListener,
+@ContentView(R.layout.activity_request)
+public class RequestActivity extends RoboFragmentActivity implements AddServerDialog.AddServerDialogListener, AddFieldDialog.AddFieldDialogListener,
         PortPickerDialog.PortPickerDialogListener{
 
     // action bar
     private ActionBar actionBar;
 
-    private FrameLayout frameLayout;
+    private @InjectView(R.id.loginLayout) FrameLayout frameLayout;
 
-    private Fragment requestFragment;
-    private Fragment configServerFragment;
-    private Fragment configRequestFragment;
+    private @Inject     RequestFragment requestFragment;
+    private @Inject     ConfigServerFragment configServerFragment;
+    private @Inject     ConfigRequestFragment configRequestFragment;
 
     /**
      * Called when the activity is first created.
@@ -37,7 +40,6 @@ public class RequestActivity extends FragmentActivity implements AddServerDialog
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_request);
 
         actionBar = getActionBar();
         // Hide the action bar title
@@ -48,18 +50,12 @@ public class RequestActivity extends FragmentActivity implements AddServerDialog
         // Enabling Spinner dropdown navigation
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        frameLayout = (FrameLayout)findViewById(R.id.loginLayout);
-
         initFragments();
-
-        //showLoginFragment();
     }
+
 
     private void initFragments(){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        requestFragment = RequestFragment.getInstance();
-        configServerFragment = ConfigServerFragment.getInstance();
-        configRequestFragment = ConfigRequestFragment.getInstance();
         fragmentTransaction.add(R.id.loginLayout, requestFragment);
         fragmentTransaction.add(R.id.loginLayout, configRequestFragment);
         fragmentTransaction.add(R.id.loginLayout, configServerFragment);

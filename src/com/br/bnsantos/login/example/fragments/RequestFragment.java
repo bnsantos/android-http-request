@@ -1,7 +1,6 @@
 package com.br.bnsantos.login.example.fragments;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -19,6 +18,8 @@ import com.br.bnsantos.login.example.tasks.ServerConnectivityTask;
 import com.br.bnsantos.login.example.utils.InternetConnection;
 import com.br.bnsantos.login.example.utils.JsonUtils;
 import com.br.bnsantos.login.example.utils.Validator;
+import roboguice.fragment.RoboFragment;
+import roboguice.inject.InjectView;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,76 +28,50 @@ import com.br.bnsantos.login.example.utils.Validator;
  * Time: 10:32 AM
  * To change this template use File | Settings | File Templates.
  */
-public class RequestFragment extends Fragment implements AdapterView.OnItemSelectedListener{
+public class RequestFragment extends RoboFragment implements AdapterView.OnItemSelectedListener{
     private static final String PICK_PORT_DIALOG = "PICK_PORT_DIALOG";
 
-    private EditText editTextServer;
-    private String selectedServer;
-    private Button connectivityBtn;
-
-    private Button portBtn;
-
-    private EditText editTextPort;
-    private int serverPort = -1;
-    private HttpMethodType httpMethod = HttpMethodType.GET;
-    private EditText editTextTargetPath;
-
-    private EditText editTextPath;
-    private RequestFragment(){}
-
-    private static RequestFragment instance;
+    private @InjectView(R.id.fragmentRequestServerEditText)         EditText editTextServer;
+    private @InjectView(R.id.fragmentRequestTestConnectivityBtn)    Button connectivityBtn;
+    private @InjectView(R.id.fragmentRequestServerPortEditText)     EditText editTextPort;
+    private @InjectView(R.id.fragmentRequestServerPortBtn)          Button portBtn;
+    private @InjectView(R.id.fragmentRequestTargetURI)              EditText editTextTargetPath;
+    private @InjectView(R.id.fragmentRequestEditText)               EditText jsonBodyRequestEditText;
+    private @InjectView(R.id.fragmentRequestPathEditText)           EditText editTextPath;
+    private @InjectView(R.id.fragmentRequestResponseStatusEditText) EditText responseStatus;
+    private @InjectView(R.id.fragmentRequestResponseTextView)       EditText responseTextView;
+    private @InjectView(R.id.fragmentLoginRequestMethodSpinner)     Spinner requestMethodSpinner;
+    private @InjectView(R.id.fragmentRequestEditServerBtn)          Button editServerBtn;
+    private @InjectView(R.id.fragmentRequestEditRequestBtn)         Button editRequestBtn;
+    private @InjectView(R.id.fragmentRequestDoRequestBtn)           Button doRequestBtn;
 
     private  String jsonBodyRequest;
-    private EditText jsonBodyRequestEditText;
-
+    private String selectedServer;
+    private int serverPort = -1;
+    private HttpMethodType httpMethod = HttpMethodType.GET;
     private ProgressSpinner progressSpinner;
-
-    private EditText responseStatus;
-    private EditText responseTextView;
-
-    public static RequestFragment getInstance(){
-        if(instance ==null){
-            instance = new RequestFragment();
-        }
-        return instance;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_request, container, false);
-        editTextServer = (EditText)view.findViewById(R.id.fragmentRequestServerEditText);
 
-        view.findViewById(R.id.fragmentRequestEditServerBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((RequestActivity)getActivity()).showConfigServerFragment();
-            }
-        });
+        progressSpinner = new ProgressSpinner((LinearLayout) view.findViewById(R.id.fragmentRequestProgressBar),
+                (LinearLayout) view.findViewById(R.id.fragmentRequestResponseLayout), getResources().getInteger(android.R.integer.config_shortAnimTime));
 
-        view.findViewById(R.id.fragmentRequestEditRequestBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((RequestActivity)getActivity()).showConfigRequestFragment();
-            }
-        });
+        return view;
+    }
 
-        portBtn = (Button)view.findViewById(R.id.fragmentRequestServerPortBtn);
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
+
         portBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectPort();
             }
         });
-        editTextPort = (EditText)view.findViewById(R.id.fragmentRequestServerPortEditText);
-        editTextTargetPath = (EditText)view.findViewById(R.id.fragmentRequestTargetURI);
-        editTextPath = (EditText)view.findViewById(R.id.fragmentRequestPathEditText);
 
-        responseStatus = (EditText)view.findViewById(R.id.fragmentRequestResponseStatusEditText);
-        responseTextView = (EditText)view.findViewById(R.id.fragmentRequestResponseTextView);
-
-        jsonBodyRequestEditText = (EditText)view.findViewById(R.id.fragmentRequestEditText);
-
-        connectivityBtn = (Button)view.findViewById(R.id.fragmentRequestTestConnectivityBtn);
         connectivityBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,20 +94,31 @@ public class RequestFragment extends Fragment implements AdapterView.OnItemSelec
             }
         });
 
-        Spinner requestMethodSpinner = (Spinner) view.findViewById(R.id.fragmentLoginRequestMethodSpinner);
         requestMethodSpinner.setOnItemSelectedListener(this);
 
-        view.findViewById(R.id.fragmentRequestDoRequestBtn).setOnClickListener(new View.OnClickListener() {
+        editServerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((RequestActivity) getActivity()).showConfigServerFragment();
+            }
+        });
+
+        editRequestBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((RequestActivity) getActivity()).showConfigRequestFragment();
+            }
+        });
+
+        doRequestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 doRequest();
             }
         });
-
-        progressSpinner = new ProgressSpinner((LinearLayout) view.findViewById(R.id.fragmentRequestProgressBar),
-                (LinearLayout) view.findViewById(R.id.fragmentRequestResponseLayout), getResources().getInteger(android.R.integer.config_shortAnimTime));
-        return view;
     }
+
+
 
     @Override
     public void onResume(){
