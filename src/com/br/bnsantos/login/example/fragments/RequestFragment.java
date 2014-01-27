@@ -13,10 +13,8 @@ import com.br.bnsantos.login.example.components.ProgressSpinner;
 import com.br.bnsantos.login.example.dialog.PortPickerDialog;
 import com.br.bnsantos.login.example.http.rest.HttpMethodType;
 import com.br.bnsantos.login.example.listeners.DoRequestListener;
-import com.br.bnsantos.login.example.tasks.ServerConnectivityTask;
-import com.br.bnsantos.login.example.utils.InternetConnection;
+import com.br.bnsantos.login.example.listeners.TestServerConnectivityListener;
 import com.br.bnsantos.login.example.utils.JsonUtils;
-import com.br.bnsantos.login.example.utils.Validator;
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
 
@@ -55,6 +53,9 @@ public class RequestFragment extends RoboFragment implements AdapterView.OnItemS
     @Inject
     private DoRequestListener doRequestListener;
 
+    @Inject
+    private TestServerConnectivityListener testServerConnectivityListener;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_request, container, false);
@@ -76,12 +77,7 @@ public class RequestFragment extends RoboFragment implements AdapterView.OnItemS
             }
         });
 
-        connectivityBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                testServerConnectivity();
-            }
-        });
+        connectivityBtn.setOnClickListener(testServerConnectivityListener);
 
         editTextPath.addTextChangedListener(new TextWatcher() {
             @Override
@@ -139,20 +135,6 @@ public class RequestFragment extends RoboFragment implements AdapterView.OnItemS
         selectedServer=server;
         editTextServer.setText(server);
         buildTargetURI();
-    }
-
-    private void testServerConnectivity(){
-        if(InternetConnection.isConnectingToInternet(getActivity().getApplicationContext())){
-            String serverAddress = editTextServer.getText().toString();
-            if(Validator.validateServerAddress(serverAddress)){
-                ServerConnectivityTask task = new ServerConnectivityTask(this);
-                task.execute(serverAddress);
-            }else{
-                Toast.makeText(getActivity().getApplicationContext(), getString(R.string.login_request_select_server), Toast.LENGTH_SHORT).show();
-            }
-        } else{
-            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
-        }
     }
 
     public void setServerConnectivity(boolean available, String msg){
@@ -226,5 +208,9 @@ public class RequestFragment extends RoboFragment implements AdapterView.OnItemS
 
     public String getJsonBodyRequest(){
         return jsonBodyRequestEditText.getText().toString();
+    }
+
+    public String getServer(){
+        return editTextServer.getText().toString();
     }
 }
