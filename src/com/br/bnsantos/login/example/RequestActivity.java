@@ -130,4 +130,16 @@ public class RequestActivity extends RoboFragmentActivity implements AddServerDi
     public ArrayList<JsonField> getRequestBody(){
         return configRequestFragment.getFields();
     }
+
+    public RequestFragment getRequestFragment() {
+        return requestFragment;
+    }
+
+    public ConfigServerFragment getConfigServerFragment() {
+        return configServerFragment;
+    }
+
+    public ConfigRequestFragment getConfigRequestFragment() {
+        return configRequestFragment;
+    }
 }

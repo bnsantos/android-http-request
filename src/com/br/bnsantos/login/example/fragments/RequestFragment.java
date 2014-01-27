@@ -11,15 +11,16 @@ import com.br.bnsantos.login.example.R;
 import com.br.bnsantos.login.example.RequestActivity;
 import com.br.bnsantos.login.example.components.ProgressSpinner;
 import com.br.bnsantos.login.example.dialog.PortPickerDialog;
-import com.br.bnsantos.login.example.http.communicator.StringResponseCommunicator;
 import com.br.bnsantos.login.example.http.rest.HttpMethodType;
-import com.br.bnsantos.login.example.http.task.HttpTask;
+import com.br.bnsantos.login.example.listeners.DoRequestListener;
 import com.br.bnsantos.login.example.tasks.ServerConnectivityTask;
 import com.br.bnsantos.login.example.utils.InternetConnection;
 import com.br.bnsantos.login.example.utils.JsonUtils;
 import com.br.bnsantos.login.example.utils.Validator;
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
+
+import javax.inject.Inject;
 
 /**
  * Created with IntelliJ IDEA.
@@ -50,6 +51,9 @@ public class RequestFragment extends RoboFragment implements AdapterView.OnItemS
     private int serverPort = -1;
     private HttpMethodType httpMethod = HttpMethodType.GET;
     private ProgressSpinner progressSpinner;
+
+    @Inject
+    private DoRequestListener doRequestListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -110,12 +114,7 @@ public class RequestFragment extends RoboFragment implements AdapterView.OnItemS
             }
         });
 
-        doRequestBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doRequest();
-            }
-        });
+        doRequestBtn.setOnClickListener(doRequestListener);
     }
 
 
@@ -177,34 +176,6 @@ public class RequestFragment extends RoboFragment implements AdapterView.OnItemS
         buildTargetURI();
     }
 
-    private void doRequest(){
-        if(InternetConnection.isConnectingToInternet(getActivity().getApplicationContext())){
-            String pathToAction = editTextTargetPath.getText().toString();
-            if(pathToAction!=null&&pathToAction.length()>0){
-                showProgressSpinner(true);
-                switch (this.httpMethod){
-                    case GET:
-                        HttpTask taskGet = new HttpTask<Void, Void>(new StringResponseCommunicator(this),
-                                null, pathToAction, this.httpMethod);
-                        taskGet.execute();
-                    case POST:
-                        String json = jsonBodyRequestEditText.getText().toString();
-                        if(JsonUtils.isJSONValid(json)){
-                            HttpTask taskPost = new HttpTask<Void, Void>(new StringResponseCommunicator(this),
-                                    null, pathToAction, this.httpMethod);
-                            taskPost.execute(json);
-                        }else{
-                            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.invalid_json), Toast.LENGTH_SHORT).show();
-                        }
-                }
-            }else{
-                Toast.makeText(getActivity().getApplicationContext(), getString(R.string.invalid_path), Toast.LENGTH_SHORT).show();
-            }
-        }else{
-            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
-        }
-    }
-
     public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
         this.httpMethod = HttpMethodType.valueOf(parent.getItemAtPosition(pos).toString());
     }
@@ -243,5 +214,17 @@ public class RequestFragment extends RoboFragment implements AdapterView.OnItemS
     public void setHttpResponse(int status, String response){
         responseStatus.setText(Integer.toString(status));
         responseTextView.setText(response);
+    }
+
+    public HttpMethodType getHttpMethod() {
+        return httpMethod;
+    }
+
+    public String getTargetPath(){
+        return editTextTargetPath.getText().toString();
+    }
+
+    public String getJsonBodyRequest(){
+        return jsonBodyRequestEditText.getText().toString();
     }
 }
