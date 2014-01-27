@@ -106,28 +106,28 @@ public class RequestActivity extends RoboFragmentActivity implements AddServerDi
     }
 
     public void selectedServer(String server){
-        ((RequestFragment) requestFragment).setSelectedServer(server);
+        requestFragment.setSelectedServer(server);
         showLoginFragment();
     }
 
     @Override
     public void onAddServerDialogPositiveClick(AddServerDialog dialog) {
-        ((ConfigServerFragment)configServerFragment).addServer(dialog.getServer());
+        configServerFragment.addServer(dialog.getServer());
     }
 
     @Override
     public void onAddFieldDialogPositiveClick(AddFieldDialog dialog){
-        ((ConfigRequestFragment)configRequestFragment).addField(dialog.getField(), dialog.getFieldValue());
-        ((RequestFragment) requestFragment).updateBody();
+        configRequestFragment.addField(dialog.getField(), dialog.getFieldValue());
+        requestFragment.updateBody();
 
     }
 
     @Override
     public void onPortPickerDialogPositiveClick(PortPickerDialog dialog){
-        ((RequestFragment) requestFragment).addPort(dialog.getPort());
+        requestFragment.addPort(dialog.getPort());
     }
 
     public ArrayList<JsonField> getRequestBody(){
-        return ((ConfigRequestFragment)configRequestFragment).getFields();
+        return configRequestFragment.getFields();
     }
 }
