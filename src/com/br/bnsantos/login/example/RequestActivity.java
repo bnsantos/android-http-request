@@ -1,7 +1,6 @@
 package com.br.bnsantos.login.example;
 
 import android.app.ActionBar;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
@@ -89,11 +88,6 @@ public class RequestActivity extends RoboFragmentActivity implements AddServerDi
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig){
-        super.onConfigurationChanged(newConfig);
     }
 
     public void showConfigServerFragment(){
