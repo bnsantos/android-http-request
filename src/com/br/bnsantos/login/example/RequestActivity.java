@@ -1,6 +1,7 @@
 package com.br.bnsantos.login.example;
 
 import android.app.ActionBar;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
@@ -61,7 +62,7 @@ public class RequestActivity extends RoboFragmentActivity implements AddServerDi
         fragmentTransaction.add(R.id.loginLayout, configServerFragment);
         fragmentTransaction.hide(configRequestFragment);
         fragmentTransaction.hide(configServerFragment).commit();
-
+        showRequestFragment();
     }
 
     @Override
@@ -77,7 +78,7 @@ public class RequestActivity extends RoboFragmentActivity implements AddServerDi
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case android.R.id.home:
-                showLoginFragment();
+                showRequestFragment();
                 return true;
             case R.id.action_config_request:
                 showConfigRequestFragment();
@@ -90,6 +91,11 @@ public class RequestActivity extends RoboFragmentActivity implements AddServerDi
         }
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig){
+        super.onConfigurationChanged(newConfig);
+    }
+
     public void showConfigServerFragment(){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.hide(configRequestFragment).hide(requestFragment).show(configServerFragment).commit();
@@ -100,14 +106,14 @@ public class RequestActivity extends RoboFragmentActivity implements AddServerDi
         fragmentTransaction.hide(configServerFragment).hide(requestFragment).show(configRequestFragment).commit();
     }
 
-    private void showLoginFragment(){
+    private void showRequestFragment(){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.hide(configServerFragment).hide(configRequestFragment).show(requestFragment).commit();
     }
 
     public void selectedServer(String server){
         requestFragment.setSelectedServer(server);
-        showLoginFragment();
+        showRequestFragment();
     }
 
     @Override

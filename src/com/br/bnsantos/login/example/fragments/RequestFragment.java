@@ -15,6 +15,7 @@ import com.br.bnsantos.login.example.http.rest.HttpMethodType;
 import com.br.bnsantos.login.example.listeners.DoRequestListener;
 import com.br.bnsantos.login.example.listeners.TestServerConnectivityListener;
 import com.br.bnsantos.login.example.utils.JsonUtils;
+import com.google.inject.Singleton;
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
 
@@ -27,6 +28,7 @@ import javax.inject.Inject;
  * Time: 10:32 AM
  * To change this template use File | Settings | File Templates.
  */
+@Singleton
 public class RequestFragment extends RoboFragment implements AdapterView.OnItemSelectedListener{
     private static final String PICK_PORT_DIALOG = "PICK_PORT_DIALOG";
 

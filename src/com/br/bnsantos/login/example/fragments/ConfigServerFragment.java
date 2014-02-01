@@ -12,6 +12,7 @@ import com.br.bnsantos.login.example.RequestActivity;
 import com.br.bnsantos.login.example.adapter.ServerArrayAdapter;
 import com.br.bnsantos.login.example.dialog.AddServerDialog;
 import com.br.bnsantos.login.example.utils.Validator;
+import com.google.inject.Singleton;
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
 
@@ -24,6 +25,7 @@ import java.util.ArrayList;
  * Time: 9:56 AM
  * To change this template use File | Settings | File Templates.
  */
+@Singleton
 public class ConfigServerFragment extends RoboFragment {
     private static final String SERVERS_BUNDLE = "SERVERS_LOGIN";
     private static final String ADD_SERVER_DIALOG = "ADD_SERVER_DIALOG";

@@ -11,6 +11,7 @@ import com.br.bnsantos.login.example.RequestActivity;
 import com.br.bnsantos.login.example.adapter.FieldArrayAdapter;
 import com.br.bnsantos.login.example.dialog.AddFieldDialog;
 import com.br.bnsantos.login.example.entities.JsonField;
+import com.google.inject.Singleton;
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
 
@@ -23,6 +24,7 @@ import java.util.ArrayList;
  * Time: 9:56 AM
  * To change this template use File | Settings | File Templates.
  */
+@Singleton
 public class ConfigRequestFragment extends RoboFragment {
     private static final String REQUEST_BUNDLE = "REQUEST_LOGIN";
     private static final String ADD_FIELD_DIALOG = "ADD_FIELD_DIALOG";
