@@ -16,7 +16,7 @@
     <string name="server">Server:</string>
     <string name="request">Request:</string>
     <string name="port">Port:</string>
-    <string name="request_method">Request Method:</string>
+    <string name="request_method">Method:</string>
     <string name="path">Path:</string>
     <string name="target_path">Target Path</string>
 

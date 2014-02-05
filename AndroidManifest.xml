@@ -11,7 +11,6 @@
                   android:theme="@android:style/Theme.DeviceDefault.Light"
                   android:name=".RequestActivity"
                   android:label="@string/app_name"
-                  android:screenOrientation="landscape"
                   android:windowSoftInputMode="stateHidden"
                   android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
